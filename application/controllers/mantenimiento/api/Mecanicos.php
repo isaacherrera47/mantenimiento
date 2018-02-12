@@ -16,9 +16,12 @@ class Mecanicos extends REST_Controller
     public function index_get()
     {
         if (($id_mecanico = $this->get('id')) && is_numeric($this->get('id'))) {
-            return $this->response($this->mecanico->obtener($id_mecanico));
+            $response['data'] = $this->response($this->mecanico->obtener($id_mecanico));
+        } else {
+            $response['data'] = $this->mecanico->obtener_todos();
         }
-        return $this->response($this->mecanico->obtener_todos());
+
+        return $this->response($response, 200);
     }
 
     public function index_post()
@@ -61,7 +64,8 @@ class Mecanicos extends REST_Controller
         }
     }
 
-    public function index_patch() {
+    public function index_patch()
+    {
         return $this->response(array('array' => $this->patch('nombre')));
     }
 }
