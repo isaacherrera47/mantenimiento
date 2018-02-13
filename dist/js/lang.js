@@ -8,6 +8,8 @@ lenguaje = {
     =======================================================
  */
 lenguaje['es']['mecanico'] = 'Mecanico'
+lenguaje['es']['refaccion'] = 'Refacción'
+lenguaje['es']['proveedor'] = 'Proveedor'
 // Confirmaciones generales
 lenguaje['es']['borrar_titulo'] = 'Borrar Elemento'
 lenguaje['es']['borrar_mensaje'] = '¿Estás seguro?'

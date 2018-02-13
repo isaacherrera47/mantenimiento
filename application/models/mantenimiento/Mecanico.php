@@ -21,7 +21,7 @@ class Mecanico extends CI_Model
 
     public function obtener($id)
     {
-        return $this->db->get_where('mecanicos', array('id_mecanico' => $id))->result_array();
+        return $this->db->get_where('mecanicos', array('id_mecanico' => $id))->row();
     }
 
     public function insertar($datos)

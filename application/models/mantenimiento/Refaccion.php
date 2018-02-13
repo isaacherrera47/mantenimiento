@@ -22,22 +22,24 @@ class Refaccion extends CI_Model
 
     public function obtener($id)
     {
-        return $this->db->get_where('refacciones', array('id' => $id))->result_array();
+        $this->db->select('a.id, a.nombre, a.descripcion, a.costo, a.tiempo_entrega, a.proveedor, b.nombre as nombre_proveedor');
+        $this->db->from('refacciones as a');
+        $this->db->join('proveedores as b', 'a.proveedor = b.id');
+        $this->db->where('a.id', $id);
+        return $this->db->get()->row();
     }
 
     public function obtener_todos()
     {
-        return $this->db->get('refacciones')->result_array();
+        $this->db->select('a.id, a.nombre, a.descripcion, a.costo, a.tiempo_entrega, a.proveedor, b.nombre as nombre_proveedor');
+        $this->db->from('refacciones as a');
+        $this->db->join('proveedores as b', 'a.proveedor = b.id');
+        return $this->db->get()->result_array();
     }
 
     public function insertar($datos)
     {
-        if ($this->db->insert('refacciones', $datos)) {
-            $datos ['id'] = $this->db->insert_id();
-            return $datos;
-        } else {
-            return false;
-        }
+        return $this->db->insert('refacciones', $datos) ? $this->obtener($this->db->insert_id()) : false;
     }
 
     public function eliminar($id)
@@ -48,11 +50,6 @@ class Refaccion extends CI_Model
     public function actualizar($id, $datos)
     {
         $this->db->where('id', $id);
-        if ($this->db->update('refacciones', $datos)) {
-            $datos['id'] = $id;
-            return $datos;
-        } else {
-            return false;
-        }
+        return $this->db->update('refacciones', $datos) ? $this->obtener($id) : false;
     }
 }

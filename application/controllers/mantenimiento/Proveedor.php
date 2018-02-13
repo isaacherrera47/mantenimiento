@@ -2,11 +2,11 @@
 /**
  * Created by PhpStorm.
  * User: intekel01
- * Date: 12/02/18
- * Time: 10:43 AM
+ * Date: 13/02/18
+ * Time: 12:36 PM
  */
 
-class Mecanico extends CI_Controller
+class Proveedor extends CI_Controller
 {
     public function __construct()
     {
@@ -16,9 +16,10 @@ class Mecanico extends CI_Controller
 
     public function index()
     {
-        $data['script'] = 'mantenimiento/mecanicos/lista';
+        $data['script'] = 'mantenimiento/proveedores/lista';
         $this->load->view('templates/header');
-        $this->load->view('mantenimiento/mecanicos/lista');
+        $this->load->view('mantenimiento/proveedores/lista');
         $this->load->view('templates/footer', $data);
     }
+
 }

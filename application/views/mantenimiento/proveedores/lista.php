@@ -297,7 +297,7 @@
         <!-- Content Header (Page header) -->
         <section class="content-header">
             <h1>
-                Catálogo de mecánicos
+                Catálogo de proveedores
             </h1>
         </section>
 
@@ -310,7 +310,7 @@
                         <div class="btn-group">
                             <button type="button" id="agregar-mecanico" class="btn btn-block btn-success"
                                     data-toggle="modal" data-action="Nuevo" data-target="#myModal">
-                                <i class="fa fa-fw fa-plus"></i> Agregar mécanico
+                                <i class="fa fa-fw fa-plus"></i> Agregar proveedor
                             </button>
                         </div>
                     </div>
@@ -328,39 +328,23 @@
                                 </button>
                                 <h4 class="modal-title"></h4>
                             </div>
-                            <form id="form-mecanico">
+                            <form id="form-proveedor">
                                 <div class="modal-body">
                                     <div class="box-body">
                                         <div class="row">
-                                            <div class="col-md-6">
-                                                <div class="form-group">
-                                                    <label for="inputdato1">Nombre</label>
-                                                    <input type="text" class="form-control" id="nombre"
-                                                           placeholder="Nombre" name="nombre">
-                                                </div>
-                                            </div>
-                                            <div class="col-md-6">
-                                                <div class="form-group">
-                                                    <label for="inputdato2">Apellidos</label>
-                                                    <input type="text" class="form-control" id="apellido"
-                                                           placeholder="Apellidos" name="apellido">
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div class="row">
                                             <div class="col-md-12">
                                                 <div class="form-group">
-                                                    <label for="inputdato3">Horas trabajadas</label>
-                                                    <input type="number" class="form-control" id="horas"
-                                                           placeholder="Horas trabajadas" name=horas>
+                                                    <label for="nombre">Nombre</label>
+                                                    <input type="text" class="form-control" id="nombre"
+                                                           placeholder="Nombre" name="nombre">
                                                 </div>
                                             </div>
                                         </div>
                                     </div>
                                 </div>
                                 <div class="modal-footer">
-                                    <button type="submit" class="btn btn-success">Guardar</button>
                                     <button type="button" class="btn btn-danger" data-dismiss="modal">Cancelar</button>
+                                    <button type="submit" class="btn btn-success">Guardar</button>
                                 </div>
                             </form>
                         </div>
@@ -374,7 +358,7 @@
 
             <div class="box">
                 <div class="box-header">
-                    <h3 class="box-title">Lista de mecánicos</h3>
+                    <h3 class="box-title">Lista de proveedores</h3>
                 </div>
                 <!-- /.box-header -->
                 <div class="box-body">
@@ -382,8 +366,6 @@
                         <thead>
                         <tr>
                             <th>Nombre</th>
-                            <th>Apellidos</th>
-                            <th>Horas Trabajadas</th>
                             <th>Acciones</th>
                         </tr>
                         </thead>
@@ -392,8 +374,6 @@
                         <tfoot>
                         <tr>
                             <th>Nombre</th>
-                            <th>Apellidos</th>
-                            <th>Horas Trabajadas</th>
                             <th>Acciones</th>
                         </tr>
                         </tfoot>
@@ -419,11 +399,11 @@
     <div class="control-sidebar-bg"></div>
 </div>
 <script id="botones-accion" type="text/x-custom-template">
-    <button type="button" class="btn bg-light-blue btn-sm editar-mecanico" data-toggle="modal"
+    <button type="button" class="btn bg-light-blue btn-sm editar-proveedor" data-toggle="modal"
             data-target="#myModal" data-action="Editar">
         <i class="fa fa-pencil"></i>
     </button>
-    <button type="button" class="btn btn-danger btn-sm eliminar-mecanico">
+    <button type="button" class="btn btn-danger btn-sm eliminar-proveedor">
         <i class="fa fa-trash"></i>
     </button>
 </script>

@@ -54,7 +54,10 @@ $route['404_override'] = '';
 $route['translate_uri_dashes'] = TRUE;
 
 $route['mantenimiento/mecanicos'] = 'mantenimiento/mecanico/index';
+$route['mantenimiento/refacciones'] = 'mantenimiento/refaccion/index';
+$route['mantenimiento/proveedores'] = 'mantenimiento/proveedor/index';
 
 $route['api/mecanicos'] = 'mantenimiento/api/mecanicos';
 $route['api/refacciones'] = 'mantenimiento/api/refacciones';
+$route['api/proveedores'] = 'mantenimiento/api/proveedores';
 
