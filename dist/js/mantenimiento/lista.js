@@ -1,27 +1,34 @@
-var url_root = window.location.origin + '/fletes/index.php'
-var api_url = url_root + '/api/mecanicos/'
-var tabla = null;
-var accion = null;
-var datos_temp = null
-var elemento_temp = null
+var url_root = window.location.origin + '/fletes/index.php' // Base url
+var api_url = url_root + '/api/mecanicos/' // URL API Mecanicos
+var accion = null; // Accion a ejecutar en modal
+var datos_temp = null // Referencia a datos temporales en edicion
+var elemento_temp = null // Referencia temporal de boton de edicion
+var ls = 'es' //Lenguaje del sistema
+
+var elementos = {
+    modal: $('#myModal'),
+    form_modal: $('#form-mecanico'),
+    tabla: $('#example1'),
+    template_botones: $('#botones-accion').html(),
+}
 
 $(document).ready(function () {
     llenarTabla()
-    $('#myModal').on('show.bs.modal', function (e) {
+    $(elementos.modal).on('show.bs.modal', function (e) {
         accion = $(e.relatedTarget).data('action')
-        $(this).find('.modal-title').text(accion + ' Mecanico')
+        $(this).find('.modal-title').text(accion + ' ' + lenguaje[ls]['mecanico'])
         if (accion == 'Nuevo') {
-            $('#form-mecanico')[0].reset()
+            $(elementos.form_modal)[0].reset()
         } else {
             elemento_temp = e.relatedTarget
-            datos_temp = tabla.row($(elemento_temp).parent()).data()
+            datos_temp = elementos.datatable.row($(elemento_temp).parent()).data()
             for (item in datos_temp) {
-                $('#form-mecanico').find('#' + item).val(datos_temp[item])
+                $(elementos.form_modal).find('#' + item).val(datos_temp[item])
             }
         }
     })
 
-    $('#form-mecanico').on('submit', function (e) {
+    $(elementos.form_modal).on('submit', function (e) {
         e.preventDefault()
         var data = $(this).serialize()
         var metodo = accion == 'Nuevo' ? 'POST' : 'PUT'
@@ -40,21 +47,29 @@ $(document).ready(function () {
         })
     })
 
-    $('#example1').on('click', '.eliminar-mecanico', function (e) {
-        console.log('okdsd')
-        elemento_temp = e.relatedTarget
-        datos_temp = tabla.row($(elemento_temp).parent()).data()
-        alertify.confirm('Borrar elemento', '¿Estas seguro?', function (e) {
-            console.log('Okk')
+    $(elementos.tabla).on('click', '.eliminar-mecanico', function (e) {
+        elemento_temp = e.currentTarget
+        datos_temp = elementos.datatable.row($(elemento_temp).parent()).data()
+        alertify.confirm(lenguaje[ls]['borrar_titulo'], lenguaje[ls]['borrar_mensaje'], function (e) {
+            // Por estandar, el metodo DELETE solo recibe parametros en URL
+            $.ajax({
+                url: api_url + '?id=' + datos_temp.id_mecanico,
+                method: 'DELETE',
+                success: function () {
+                    elementos.datatable.row($(elemento_temp).parent()).remove().draw()
+                    alertify.success(lenguaje[ls]['borrar_exito'])
+                },
+                error: function (e) {
+                    alertify.error(lenguaje[ls]['borrar_error'])
+                }
+            })
         }, function (e) {
-            console.log('accept')
         })
     })
 })
 
 function llenarTabla() {
-    var botones_accion = $('#botones-accion').html()
-    tabla = $('#example1').DataTable({
+    elementos.datatable = $(elementos.tabla).DataTable({
         "autoWidth": false,
         responsive: true,
         "ajax": api_url,
@@ -64,19 +79,21 @@ function llenarTabla() {
             {'data': 'horas'},
             {
                 "data": null,
-                "defaultContent": botones_accion
+                "defaultContent": elementos.template_botones
             }
         ]
     });
 }
 
 function actualizarInterfaz(accion, datos) {
+    var texto = accion == 'Nuevo' ? lenguaje[ls]['agregar_exito'] : lenguaje[ls]['actualizar_exito']
     if (accion == 'Nuevo') {
-        tabla.row.add(datos).draw()
+        elementos.datatable.row.add(datos).draw()
     } else {
-        tabla.row($(elemento_temp).parent()).data(datos).draw()
+        elementos.datatable.row($(elemento_temp).parent()).data(datos).draw()
         datos_temp = null
         elemento_temp = null
     }
-    $('#myModal').modal('hide')
+    alertify.success(texto)
+    $(elementos.modal).modal('hide')
 }

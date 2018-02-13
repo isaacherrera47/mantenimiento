@@ -45,6 +45,7 @@
 <!-- iCheck 1.0.1 -->
 <script src="<?php echo base_url('plugins/iCheck/icheck.min.js')?>"></script>
 <script src="<?php echo base_url('plugins/select2/select2.full.min.js')?>"></script>
+<script src="<?php echo base_url('dist/js/lang.js')?>"></script>
 <?php if (isset($script)): ?>
 <script src="<?php echo base_url('dist/js/'.$script.'.js')?>"></script>
 <?php endif ?>
