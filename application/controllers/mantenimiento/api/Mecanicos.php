@@ -16,7 +16,7 @@ class Mecanicos extends REST_Controller
     public function index_get()
     {
         if (($id_mecanico = $this->get('id')) && is_numeric($this->get('id'))) {
-            $response['data'] = $this->response($this->mecanico->obtener($id_mecanico));
+            $response['data'] = $this->mecanico->obtener($id_mecanico);
         } else {
             $response['data'] = $this->mecanico->obtener_todos();
         }

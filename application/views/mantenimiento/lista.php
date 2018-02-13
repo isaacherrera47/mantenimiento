@@ -5,11 +5,11 @@
         <a href="index.html" class="logo">
             <!-- mini logo for sidebar mini 50x50 pixels -->
             <span class="logo-mini">
-                    <img src="<?php echo base_url('dist/img/ramlwmini.png')?>">
+                    <img src="<?php echo base_url('dist/img/ramlwmini.png') ?>">
                 </span>
             <!-- logo for regular state and mobile devices -->
             <span class="logo-lg">
-                    <img src="<?php echo base_url('dist/img/ramlw.png')?>">
+                    <img src="<?php echo base_url('dist/img/ramlw.png') ?>">
                 </span>
         </a>
         <!-- Header Navbar: style can be found in header.less -->
@@ -308,8 +308,8 @@
                 <div class="col-md-5 col-md-offset-7 col-sm-12">
                     <div style="float: right; margin-bottom: 15px">
                         <div class="btn-group">
-                            <button type="button" class="btn btn-block btn-success" data-toggle="modal"
-                                    data-target="#myModal">
+                            <button type="button" id="agregar-mecanico" class="btn btn-block btn-success"
+                                    data-toggle="modal" data-action="Nuevo" data-target="#myModal">
                                 <i class="fa fa-fw fa-plus"></i> Agregar mécanico
                             </button>
                         </div>
@@ -326,40 +326,43 @@
                                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                                     <span aria-hidden="true">&times;</span>
                                 </button>
-                                <h4 class="modal-title">Nuevo Mecanico</h4>
+                                <h4 class="modal-title"></h4>
                             </div>
-                            <div class="modal-body">
-                                <div class="box-body">
-                                    <div class="row">
-                                        <div class="col-md-6">
-                                            <div class="form-group">
-                                                <label for="inputdato1">Nombre</label>
-                                                <input type="text" class="form-control" id="inputdato1"
-                                                       placeholder="Nombre" name="nombre">
+                            <form id="form-mecanico">
+                                <div class="modal-body">
+                                    <div class="box-body">
+                                        <div class="row">
+                                            <div class="col-md-6">
+                                                <div class="form-group">
+                                                    <label for="inputdato1">Nombre</label>
+                                                    <input type="text" class="form-control" id="nombre"
+                                                           placeholder="Nombre" name="nombre">
+                                                </div>
+                                            </div>
+                                            <div class="col-md-6">
+                                                <div class="form-group">
+                                                    <label for="inputdato2">Apellidos</label>
+                                                    <input type="text" class="form-control" id="apellido"
+                                                           placeholder="Apellidos" name="apellido">
+                                                </div>
                                             </div>
                                         </div>
-                                        <div class="col-md-6">
-                                            <div class="form-group">
-                                                <label for="inputdato2">Apellidos</label>
-                                                <input type="text" class="form-control" id="inputdato2"
-                                                       placeholder="Apellidos" name="apellidos">
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="row">
-                                        <div class="col-md-12">
-                                            <div class="form-group">
-                                                <label for="inputdato3">Horas trabajadas</label>
-                                                <input type="number" class="form-control" id="inputdato3"
-                                                       placeholder="Horas trabajadas" name=horas>
+                                        <div class="row">
+                                            <div class="col-md-12">
+                                                <div class="form-group">
+                                                    <label for="inputdato3">Horas trabajadas</label>
+                                                    <input type="number" class="form-control" id="horas"
+                                                           placeholder="Horas trabajadas" name=horas>
+                                                </div>
                                             </div>
                                         </div>
                                     </div>
                                 </div>
-                            </div>
-                            <div class="modal-footer">
-                                <button type="button" class="btn btn-success" data-dismiss="modal">Guardar</button>
-                            </div>
+                                <div class="modal-footer">
+                                    <button type="submit" class="btn btn-success">Guardar</button>
+                                    <button type="button" class="btn btn-danger" data-dismiss="modal">Cancelar</button>
+                                </div>
+                            </form>
                         </div>
                         <!-- /.modal-content -->
                     </div>
@@ -381,6 +384,7 @@
                             <th>Nombre</th>
                             <th>Apellidos</th>
                             <th>Horas Trabajadas</th>
+                            <th>Acciones</th>
                         </tr>
                         </thead>
                         <tbody>
@@ -390,6 +394,7 @@
                             <th>Nombre</th>
                             <th>Apellidos</th>
                             <th>Horas Trabajadas</th>
+                            <th>Acciones</th>
                         </tr>
                         </tfoot>
                     </table>
@@ -413,4 +418,13 @@
    immediately after the control sidebar -->
     <div class="control-sidebar-bg"></div>
 </div>
+<script id="botones-accion" type="text/x-custom-template">
+    <button type="button" class="btn bg-light-blue btn-sm editar-mecanico" data-toggle="modal"
+            data-target="#myModal" data-action="Editar">
+        <i class="fa fa-pencil"></i>
+    </button>
+    <button type="button" class="btn btn-danger btn-sm eliminar-mecanico">
+        <i class="fa fa-trash"></i>
+    </button>
+</script>
 <!-- ./wrapper -->

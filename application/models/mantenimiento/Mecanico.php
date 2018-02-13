@@ -27,7 +27,7 @@ class Mecanico extends CI_Model
     public function insertar($datos)
     {
         if ($this->db->insert('mecanicos', $datos)) {
-            $datos ['id'] = $this->db->insert_id();
+            $datos ['id_mecanico'] = $this->db->insert_id();
             return $datos;
         } else {
             return false;
@@ -43,7 +43,7 @@ class Mecanico extends CI_Model
     {
         $this->db->where('id_mecanico', $id);
         if ($this->db->update('mecanicos', $datos)) {
-            $datos['id'] = $id;
+            $datos['id_mecanico'] = $id;
             return $datos;
         } else {
             return false;

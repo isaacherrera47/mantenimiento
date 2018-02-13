@@ -36,6 +36,7 @@
 <script src="<?php echo base_url('plugins/toastr/toastr.js')?>"></script>
 <!-- FastClick -->
 <script src="<?php echo base_url('plugins/fastclick/fastclick.js')?>"></script>
+<script src="<?php echo base_url('plugins/alertifyjs/alertify.min.js')?>"></script>
 <!-- AdminLTE App -->
 <script src="<?php echo base_url('dist/js/app.min.js')?>"></script>
 
