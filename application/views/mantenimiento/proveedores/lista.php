@@ -332,11 +332,25 @@
                                 <div class="modal-body">
                                     <div class="box-body">
                                         <div class="row">
-                                            <div class="col-md-12">
+                                            <div class="col-md-6">
                                                 <div class="form-group">
                                                     <label for="nombre">Nombre</label>
                                                     <input type="text" class="form-control" id="nombre"
                                                            placeholder="Nombre" name="nombre">
+                                                </div>
+                                            </div>
+                                            <div class="col-md-6">
+                                                <div class="form-group">
+                                                    <label for="telefono">Telefono</label>
+                                                    <input type="tel" class="form-control" id="telefono"
+                                                           placeholder="Telefono" name="telefono">
+                                                </div>
+                                            </div>
+                                            <div class="col-md-12">
+                                                <div class="form-group">
+                                                    <label for="nombre">Direccion</label>
+                                                    <input type="text" class="form-control" id="direccion"
+                                                           placeholder="Direccion" name="direccion">
                                                 </div>
                                             </div>
                                         </div>
@@ -366,6 +380,8 @@
                         <thead>
                         <tr>
                             <th>Nombre</th>
+                            <th>Direccion</th>
+                            <th>Telefono</th>
                             <th>Acciones</th>
                         </tr>
                         </thead>
@@ -374,6 +390,8 @@
                         <tfoot>
                         <tr>
                             <th>Nombre</th>
+                            <th>Direccion</th>
+                            <th>Telefono</th>
                             <th>Acciones</th>
                         </tr>
                         </tfoot>

@@ -28,6 +28,8 @@ class Proveedores extends REST_Controller
     {
         $datos = array(
             'nombre' => $this->post('nombre'),
+            'direccion' => $this->post('direccion'),
+            'telefono' => $this->post('telefono'),
         );
         if ($result = $this->proveedor->insertar($datos)) {
             return $this->response($result, 201);
@@ -51,6 +53,8 @@ class Proveedores extends REST_Controller
     {
         $datos = array(
             'nombre' => $this->put('nombre'),
+            'direccion' => $this->put('direccion'),
+            'telefono' => $this->put('telefono'),
         );
 
         if ($result = $this->proveedor->actualizar($this->put('id'), $datos)) {

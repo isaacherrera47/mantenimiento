@@ -10,7 +10,8 @@ class Proveedor extends CI_Model
 {
     public $id;
     public $nombre;
-
+    public $direccion;
+    public $telefono;
 
     public function __construct()
     {

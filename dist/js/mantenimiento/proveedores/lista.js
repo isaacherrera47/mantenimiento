@@ -75,6 +75,8 @@ function llenarTabla() {
         "ajax": api_url,
         "columns": [
             {'data': 'nombre'},
+            {'data': 'direccion'},
+            {'data': 'telefono'},
             {
                 "data": null,
                 "defaultContent": elementos.template_botones

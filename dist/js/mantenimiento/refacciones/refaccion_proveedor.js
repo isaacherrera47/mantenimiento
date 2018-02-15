@@ -81,8 +81,8 @@ function llenarTabla() {
         "ajax": api_url + '?id_refaccion=' + elementos.id_refaccion,
         "columns": [
             {'data': 'proveedor.nombre'},
-            {'data': 'proveedor.id'},
-            {'data': 'refaccion.nombre'},
+            {'data': 'proveedor.direccion'},
+            {'data': 'proveedor.telefono'},
             {'data': 'costo'},
             {
                 "data": null,
