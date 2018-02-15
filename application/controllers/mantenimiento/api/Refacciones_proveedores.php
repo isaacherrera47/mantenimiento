@@ -15,8 +15,9 @@ class Refacciones_proveedores extends REST_Controller
 
     public function index_get()
     {
-        if ($this->get('id') || $this->get('id_refaccion') || $this->get('id_proveedor')) {
-            $response['data'] = $this->refaccion_proveedor->obtener($this->get());
+        $params = $this->refaccion_proveedor->obtener_parametros_where($this->get());
+        if (isset($params['id']) || isset($params['id_refaccion']) || isset($params['id_proveedor'])) {
+            $response['data'] = $this->refaccion_proveedor->obtener($params);
         } else {
             $response['data'] = $this->refaccion_proveedor->obtener_todos();
         }
@@ -27,9 +28,9 @@ class Refacciones_proveedores extends REST_Controller
     public function index_post()
     {
         $datos = array(
-            'nombre' => $this->post('nombre'),
-            'descripcion' => $this->post('descripcion'),
-            'tiempo_entrega' => $this->post('tiempo_entrega'),
+            'id_refaccion' => $this->post('id_refaccion'),
+            'id_proveedor' => $this->post('proveedor'),
+            'costo' => $this->post('costo'),
         );
         if ($result = $this->refaccion_proveedor->insertar($datos)) {
             return $this->response($result, 201);
@@ -52,15 +53,15 @@ class Refacciones_proveedores extends REST_Controller
     public function index_put()
     {
         $datos = array(
-            'nombre' => $this->put('nombre'),
-            'descripcion' => $this->put('descripcion'),
-            'tiempo_entrega' => $this->put('tiempo_entrega'),
+            'id_refaccion' => $this->put('id_refaccion'),
+            'id_proveedor' => $this->put('proveedor'),
+            'costo' => $this->put('costo'),
         );
 
-        if ($result = $this->refaccion_proveedor->actualizar($this->put('id'), $datos)) {
+        if ($result = $this->refaccion_proveedor->actualizar(array('id' => $this->put('id')), $datos)) {
             return $this->response($result, 200);
         } else {
-            return $this->response(null, 500);
+            return $this->response($result, 500);
         }
     }
 }

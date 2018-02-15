@@ -9,6 +9,7 @@ lenguaje = {
  */
 lenguaje['es']['mecanico'] = 'Mecanico'
 lenguaje['es']['refaccion'] = 'Refacción'
+lenguaje['es']['refaccion_proveedor'] = 'Proveedor de Refacción'
 lenguaje['es']['proveedor'] = 'Proveedor'
 // Confirmaciones generales
 lenguaje['es']['borrar_titulo'] = 'Borrar Elemento'

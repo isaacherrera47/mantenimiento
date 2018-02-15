@@ -11,17 +11,18 @@ class Refaccion_proveedor extends CI_Model
     public $id;
     public $id_refaccion;
     public $id_proveedor;
-    public $id_costo;
-
+    public $costo;
+    private $where_clauses;
 
     public function __construct()
     {
         $this->load->database();
+        $this->where_clauses = array('id', 'id_refaccion', 'id_proveedor');
     }
 
     public function obtener($array_id)
     {
-        if (isset($array_id['id_refaccion']) && isset($array_id['id_proveedor'])) {
+        if (isset($array_id['id_refaccion']) && isset($array_id['id_proveedor']) || isset($array_id['id'])) {
             return $this->obtener_primero($array_id);
         }
 
@@ -43,18 +44,18 @@ class Refaccion_proveedor extends CI_Model
 
     public function insertar($datos)
     {
-        return $this->db->insert('refaciones_proveedores', $datos) ? $this->obtener(array('id' => $this->db->insert_id())) : false;
+        return $this->db->insert('refacciones_proveedores', $datos) ? $this->obtener(array('id' => $this->db->insert_id())) : false;
     }
 
     public function eliminar($id)
     {
-        return $this->db->delete('refaciones_proveedores', array('id' => $id));
+        return $this->db->delete('refacciones_proveedores', array('id' => $id));
     }
 
     public function actualizar($array_id, $datos)
     {
         $this->db->where($array_id);
-        return $this->db->update('refaciones_proveedores', $datos) ? $this->obtener(array('id' => $this->db->insert_id())) : false;
+        return $this->db->update('refacciones_proveedores', $datos) ? $this->obtener($array_id) : false;
     }
 
     private function obtener_relaciones($obj)
@@ -77,5 +78,16 @@ class Refaccion_proveedor extends CI_Model
             }
         }
         return $obj;
+    }
+
+    public function obtener_parametros_where($get_params)
+    {
+        $clean_array = array();
+        foreach ($this->where_clauses as $clause) {
+            if (isset($get_params[$clause]) && !empty($get_params[$clause])) {
+                $clean_array[$clause] = $get_params[$clause];
+            }
+        }
+        return $clean_array;
     }
 }

@@ -310,7 +310,7 @@
                         <div class="btn-group">
                             <button type="button" id="agregar-mecanico" class="btn btn-block btn-success"
                                     data-toggle="modal" data-action="Nuevo" data-target="#myModal">
-                                <i class="fa fa-fw fa-plus"></i> Agregar proveedor
+                                <i class="fa fa-fw fa-plus"></i> Agregar proveedor de refacción
                             </button>
                         </div>
                     </div>
