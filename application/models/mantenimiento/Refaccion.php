@@ -11,9 +11,7 @@ class Refaccion extends CI_Model
     public $id;
     public $nombre;
     public $descripcion;
-    public $costo;
     public $tiempo_entrega;
-    public $proveedor;
 
     public function __construct()
     {
@@ -22,19 +20,12 @@ class Refaccion extends CI_Model
 
     public function obtener($id)
     {
-        $this->db->select('a.id, a.nombre, a.descripcion, a.costo, a.tiempo_entrega, a.proveedor, b.nombre as nombre_proveedor');
-        $this->db->from('refacciones as a');
-        $this->db->join('proveedores as b', 'a.proveedor = b.id');
-        $this->db->where('a.id', $id);
-        return $this->db->get()->row();
+        return $this->db->get_where('refacciones', array('id' => $id))->row();
     }
 
     public function obtener_todos()
     {
-        $this->db->select('a.id, a.nombre, a.descripcion, a.costo, a.tiempo_entrega, a.proveedor, b.nombre as nombre_proveedor');
-        $this->db->from('refacciones as a');
-        $this->db->join('proveedores as b', 'a.proveedor = b.id');
-        return $this->db->get()->result_array();
+        return $this->db->get('refacciones')->result_array();
     }
 
     public function insertar($datos)

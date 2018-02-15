@@ -297,7 +297,7 @@
         <!-- Content Header (Page header) -->
         <section class="content-header">
             <h1>
-                Catálogo de refacciones
+                Catálogo de proveedores de refacción
             </h1>
         </section>
 
@@ -310,7 +310,7 @@
                         <div class="btn-group">
                             <button type="button" id="agregar-mecanico" class="btn btn-block btn-success"
                                     data-toggle="modal" data-action="Nuevo" data-target="#myModal">
-                                <i class="fa fa-fw fa-plus"></i> Agregar refacción
+                                <i class="fa fa-fw fa-plus"></i> Agregar proveedor
                             </button>
                         </div>
                     </div>
@@ -328,29 +328,27 @@
                                 </button>
                                 <h4 class="modal-title"></h4>
                             </div>
-                            <form id="form-refaccion">
+                            <form id="form-refaccion-proveedor">
                                 <div class="modal-body">
                                     <div class="box-body">
                                         <div class="row">
-                                            <div class="col-md-6">
+                                            <div class="col-md-12">
                                                 <div class="form-group">
-                                                    <label for="nombre">Nombre</label>
-                                                    <input type="text" class="form-control" id="nombre"
-                                                           placeholder="Nombre" name="nombre">
-                                                </div>
-                                            </div>
-                                            <div class="col-md-6">
-                                                <div class="form-group">
-                                                    <label for="descripcion">Descripcion</label>
-                                                    <input type="text" class="form-control" id="descripcion"
-                                                           placeholder="Descripcion" name="descripcion">
+                                                    <label for="proveedor">Proveedor</label>
+                                                    <select class="form-control" name="proveedor" id="proveedor">
+                                                        <?php foreach($proveedores as $proveedor): ?>
+                                                            <option value="<?= $proveedor['id'] ?>">
+                                                                <?= $proveedor['nombre'] ?>
+                                                            </option>
+                                                        <? endforeach ?>
+                                                    </select>
                                                 </div>
                                             </div>
                                             <div class="col-md-12">
                                                 <div class="form-group">
-                                                    <label for="tiempo_entrega">Tiempo de entrega</label>
-                                                    <input type="text" class="form-control" id="tiempo_entrega"
-                                                           placeholder="Tiempo de entrega" name="tiempo_entrega">
+                                                    <label for="nombre">Costo</label>
+                                                    <input type="text" class="form-control" id="costo"
+                                                           placeholder="Costo" name="costo">
                                                 </div>
                                             </div>
                                         </div>
@@ -372,16 +370,19 @@
 
             <div class="box">
                 <div class="box-header">
-                    <h3 class="box-title">Lista de refacciones</h3>
+                    <h3 class="box-title">
+                        Lista de proveedores de refacción: <?= $refaccion->nombre .' - '. $refaccion->descripcion ?>
+                    </h3>
                 </div>
                 <!-- /.box-header -->
                 <div class="box-body">
-                    <table id="example1" class="table table-bordered table-striped">
+                    <table data-id="<?= $refaccion->id ?>" id="example1" class="table table-bordered table-striped">
                         <thead>
                         <tr>
                             <th>Nombre</th>
-                            <th>Descripcion</th>
-                            <th>Tiempo de entrega</th>
+                            <th>Direccion</th>
+                            <th>Telefono</th>
+                            <th>Costo</th>
                             <th>Acciones</th>
                         </tr>
                         </thead>
@@ -390,8 +391,9 @@
                         <tfoot>
                         <tr>
                             <th>Nombre</th>
-                            <th>Descripcion</th>
-                            <th>Tiempo de entrega</th>
+                            <th>Direccion</th>
+                            <th>Telefono</th>
+                            <th>Costo</th>
                             <th>Acciones</th>
                         </tr>
                         </tfoot>
@@ -417,11 +419,11 @@
     <div class="control-sidebar-bg"></div>
 </div>
 <script id="botones-accion" type="text/x-custom-template">
-    <button type="button" class="btn bg-light-blue btn-sm editar-refaccion" data-toggle="modal"
+    <button type="button" class="btn bg-light-blue btn-sm editar-proveedor" data-toggle="modal"
             data-target="#myModal" data-action="Editar">
         <i class="fa fa-pencil"></i>
     </button>
-    <button type="button" class="btn btn-danger btn-sm eliminar-refaccion">
+    <button type="button" class="btn btn-danger btn-sm eliminar-proveedor">
         <i class="fa fa-trash"></i>
     </button>
 </script>

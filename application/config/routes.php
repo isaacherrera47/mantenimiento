@@ -51,13 +51,15 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 */
 $route['default_controller'] = 'welcome';
 $route['404_override'] = '';
-$route['translate_uri_dashes'] = TRUE;
+$route['translate_uri_dashes'] = FALSE;
 
-$route['mantenimiento/mecanicos'] = 'mantenimiento/mecanico/index';
-$route['mantenimiento/refacciones'] = 'mantenimiento/refaccion/index';
-$route['mantenimiento/proveedores'] = 'mantenimiento/proveedor/index';
+$route['mantenimiento/mecanicos'] = 'mantenimiento/mecanico_controller/index';
+$route['mantenimiento/refacciones'] = 'mantenimiento/refaccion_controller/index';
+$route['mantenimiento/refacciones/(:num)'] = 'mantenimiento/refaccion_controller/refaccion_proveedor/$1';
+$route['mantenimiento/proveedores'] = 'mantenimiento/proveedor_controller/index';
 
 $route['api/mecanicos'] = 'mantenimiento/api/mecanicos';
 $route['api/refacciones'] = 'mantenimiento/api/refacciones';
+$route['api/refacciones-proveedores'] = 'mantenimiento/api/refacciones_proveedores';
 $route['api/proveedores'] = 'mantenimiento/api/proveedores';
 

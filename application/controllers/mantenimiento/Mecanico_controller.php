@@ -6,7 +6,7 @@
  * Time: 10:43 AM
  */
 
-class Mecanico extends CI_Controller
+class Mecanico_controller extends CI_Controller
 {
     public function __construct()
     {

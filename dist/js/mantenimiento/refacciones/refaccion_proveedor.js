@@ -7,9 +7,10 @@ var ls = 'es' //Lenguaje del sistema
 
 var elementos = {
     modal: $('#myModal'),
-    form_modal: $('#form-refaccion'),
+    form_modal: $('#form-refaccion-proveedor'),
     tabla: $('#example1'),
     template_botones: $('#botones-accion').html(),
+    id_refaccion: tabla.data('id'),
 }
 
 $(document).ready(function () {
@@ -72,11 +73,12 @@ function llenarTabla() {
     elementos.datatable = $(elementos.tabla).DataTable({
         "autoWidth": false,
         responsive: true,
-        "ajax": api_url,
+        "ajax": api_url + '?id_refaccion=' + elementos.id_refaccion,
         "columns": [
-            {'data': 'nombre'},
-            {'data': 'descripcion'},
-            {'data': 'tiempo_entrega'},
+            {'data': 'nombre_p'},
+            {'data': 'direccion_p'},
+            {'data': 'telefono_p'},
+            {'data': 'costo'},
             {
                 "data": null,
                 "defaultContent": elementos.template_botones

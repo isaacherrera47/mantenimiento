@@ -6,7 +6,7 @@
  * Time: 12:36 PM
  */
 
-class Proveedor extends CI_Controller
+class Proveedor_controller extends CI_Controller
 {
     public function __construct()
     {
