@@ -90,4 +90,16 @@ class Refaccion_proveedor extends CI_Model
         }
         return $clean_array;
     }
+
+    public function existe_registro($id_refaccion, $id_proveedor, $id_row = null)
+    {
+        $where_clause = array('id_refaccion' => $id_refaccion, 'id_proveedor' => $id_proveedor);
+        if ($row = $this->db->get_where('refacciones_proveedores', $where_clause)->row()) {
+            if ($id_row === null || $row->id != $id_row) {
+                return true;
+            }
+        }
+
+        return false;
+    }
 }

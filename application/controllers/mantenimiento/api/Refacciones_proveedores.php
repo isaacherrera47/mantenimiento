@@ -32,6 +32,9 @@ class Refacciones_proveedores extends REST_Controller
             'id_proveedor' => $this->post('proveedor'),
             'costo' => $this->post('costo'),
         );
+        if ($this->refaccion_proveedor->existe_registro($datos['id_refaccion'], $datos['id_proveedor'])) {
+            return $this->response(null, 409);
+        }
         if ($result = $this->refaccion_proveedor->insertar($datos)) {
             return $this->response($result, 201);
         } else {
@@ -57,6 +60,10 @@ class Refacciones_proveedores extends REST_Controller
             'id_proveedor' => $this->put('proveedor'),
             'costo' => $this->put('costo'),
         );
+
+        if ($this->refaccion_proveedor->existe_registro($datos['id_refaccion'], $datos['id_proveedor'], $this->put('id'))) {
+            return $this->response(null, 409);
+        }
 
         if ($result = $this->refaccion_proveedor->actualizar(array('id' => $this->put('id')), $datos)) {
             return $this->response($result, 200);

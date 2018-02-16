@@ -46,6 +46,10 @@ $(document).ready(function () {
                 actualizarInterfaz(accion, data)
             },
             error: function (e, d) {
+                if (e.status) {
+                    alertify.error(lenguaje[ls]['duplicado_error'])
+                    $(elementos.modal).modal('hide')
+                }
                 console.log(d)
                 console.log(e)
             }
