@@ -424,5 +424,8 @@
     <button type="button" class="btn btn-danger btn-sm eliminar-proveedor">
         <i class="fa fa-trash"></i>
     </button>
+    <button type="button" class="btn btn-info btn-sm ver-refacciones">
+        <i class="fa fa-wrench"></i>
+    </button>
 </script>
 <!-- ./wrapper -->

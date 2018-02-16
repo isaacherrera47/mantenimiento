@@ -29,7 +29,7 @@ class Refacciones_proveedores extends REST_Controller
     {
         $datos = array(
             'id_refaccion' => $this->post('id_refaccion'),
-            'id_proveedor' => $this->post('proveedor'),
+            'id_proveedor' => $this->post('id_proveedor'),
             'costo' => $this->post('costo'),
         );
         if ($this->refaccion_proveedor->existe_registro($datos['id_refaccion'], $datos['id_proveedor'])) {
@@ -57,7 +57,7 @@ class Refacciones_proveedores extends REST_Controller
     {
         $datos = array(
             'id_refaccion' => $this->put('id_refaccion'),
-            'id_proveedor' => $this->put('proveedor'),
+            'id_proveedor' => $this->put('id_proveedor'),
             'costo' => $this->put('costo'),
         );
 

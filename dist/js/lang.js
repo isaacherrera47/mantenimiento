@@ -11,6 +11,7 @@ lenguaje['es']['mecanico'] = 'Mecanico'
 lenguaje['es']['refaccion'] = 'Refacción'
 lenguaje['es']['refaccion_proveedor'] = 'Proveedor de Refacción'
 lenguaje['es']['proveedor'] = 'Proveedor'
+lenguaje['es']['proveedor_refaccion'] = 'Refacción de Proveedor'
 // Confirmaciones generales
 lenguaje['es']['borrar_titulo'] = 'Borrar Elemento'
 lenguaje['es']['borrar_mensaje'] = '¿Estás seguro?'

@@ -297,7 +297,7 @@
         <!-- Content Header (Page header) -->
         <section class="content-header">
             <h1>
-                Catálogo de proveedores de refacción
+                Catálogo de refacciones de proveedor
             </h1>
         </section>
 
@@ -310,7 +310,7 @@
                         <div class="btn-group">
                             <button type="button" id="agregar-mecanico" class="btn btn-block btn-success"
                                     data-toggle="modal" data-action="Nuevo" data-target="#myModal">
-                                <i class="fa fa-fw fa-plus"></i> Agregar proveedor de refacción
+                                <i class="fa fa-fw fa-plus"></i> Agregar refacción a proveedor
                             </button>
                         </div>
                     </div>
@@ -334,11 +334,11 @@
                                         <div class="row">
                                             <div class="col-md-12">
                                                 <div class="form-group">
-                                                    <label for="id_proveedor">Proveedores</label>
-                                                    <select class="form-control" name="id_proveedor" id="id_proveedor">
-                                                        <?php foreach($proveedores as $proveedor): ?>
-                                                            <option value="<?= $proveedor['id'] ?>">
-                                                                <?= $proveedor['nombre'] ?>
+                                                    <label for="id_refaccion">Refacciones</label>
+                                                    <select class="form-control" name="id_refaccion" id="id_refaccion">
+                                                        <?php foreach($refacciones as $refaccion): ?>
+                                                            <option value="<?= $refaccion['id'] ?>">
+                                                                <?= $refaccion['nombre'] ?>
                                                             </option>
                                                         <? endforeach ?>
                                                     </select>
@@ -371,17 +371,17 @@
             <div class="box">
                 <div class="box-header">
                     <h3 class="box-title">
-                        Lista de proveedores de refacción: <?= $refaccion->nombre .' - '. $refaccion->descripcion ?>
+                        Lista de proveedores de refacción: <?= $proveedor->id .' - '. $proveedor->nombre ?>
                     </h3>
                 </div>
                 <!-- /.box-header -->
                 <div class="box-body">
-                    <table data-id="<?= $refaccion->id ?>" id="example1" class="table table-bordered table-striped">
+                    <table data-id="<?= $proveedor->id ?>" id="example1" class="table table-bordered table-striped">
                         <thead>
                         <tr>
                             <th>Nombre</th>
-                            <th>Direccion</th>
-                            <th>Telefono</th>
+                            <th>Descripcion</th>
+                            <th>Tiempo de entrega</th>
                             <th>Costo</th>
                             <th>Acciones</th>
                         </tr>
@@ -391,8 +391,8 @@
                         <tfoot>
                         <tr>
                             <th>Nombre</th>
-                            <th>Direccion</th>
-                            <th>Telefono</th>
+                            <th>Descripcion</th>
+                            <th>Tiempo de entrega</th>
                             <th>Costo</th>
                             <th>Acciones</th>
                         </tr>
@@ -419,11 +419,11 @@
     <div class="control-sidebar-bg"></div>
 </div>
 <script id="botones-accion" type="text/x-custom-template">
-    <button type="button" class="btn bg-light-blue btn-sm editar-proveedor" data-toggle="modal"
+    <button type="button" class="btn bg-light-blue btn-sm editar-refaccion" data-toggle="modal"
             data-target="#myModal" data-action="Editar">
         <i class="fa fa-pencil"></i>
     </button>
-    <button type="button" class="btn btn-danger btn-sm eliminar-proveedor">
+    <button type="button" class="btn btn-danger btn-sm eliminar-refaccion">
         <i class="fa fa-trash"></i>
     </button>
 </script>
