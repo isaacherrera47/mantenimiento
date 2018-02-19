@@ -19,9 +19,9 @@ class Servicio extends CI_Model
         $this->load->database();
     }
 
-    public function obtener_todos()
+    public function obtener_todos($tipo = false)
     {
-        return $this->db->get('servicios')->row();
+        return $tipo ? $this->db->get_where('servicios', array('tipo' => $tipo))->result_array() : $this->db->get('servicios')->result_array();
     }
 
     public function obtener($id)

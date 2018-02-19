@@ -18,7 +18,7 @@ class Servicios extends REST_Controller
         if (($id = $this->get('id')) && is_numeric($this->get('id'))) {
             $response['data'] = $this->servicio->obtener($id);
         } else {
-            $response['data'] = $this->servicio->obtener_todos();
+            $response['data'] = $this->servicio->obtener_todos($this->get('tipo'));
         }
 
         return $this->response($response, 200);
@@ -28,6 +28,10 @@ class Servicios extends REST_Controller
     {
         $datos = array(
             'nombre' => $this->post('nombre'),
+            'descripcion' => $this->post('descripcion'),
+            'tiempo_entrega' => $this->post('tiempo_entrega'),
+            'tipo' => $this->post('tipo'),
+            'categoria' => $this->post('categoria'),
         );
         if ($result = $this->servicio->insertar($datos)) {
             return $this->response($result, 201);
@@ -51,6 +55,9 @@ class Servicios extends REST_Controller
     {
         $datos = array(
             'nombre' => $this->put('nombre'),
+            'descripcion' => $this->put('descripcion'),
+            'tiempo_entrega' => $this->put('tiempo_entrega'),
+            'categoria' => $this->put('categoria'),
         );
 
         if ($result = $this->servicio->actualizar($this->put('id'), $datos)) {

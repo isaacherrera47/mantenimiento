@@ -26,6 +26,7 @@ $(document).ready(function () {
             for (item in datos_temp) {
                 if (datos_temp[item] instanceof Object) {
                     $(elementos.form_modal).find('#' + item).val(datos_temp[item].id) // Sirve solo para select
+                    $(elementos.form_modal).find('#id_' + item).val(datos_temp[item].id) // Para asignar id a objetos
                 } else {
                     $(elementos.form_modal).find('#' + item).val(datos_temp[item])
                 }

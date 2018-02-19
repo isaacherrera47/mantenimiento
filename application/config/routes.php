@@ -54,6 +54,8 @@ $route['404_override'] = '';
 $route['translate_uri_dashes'] = FALSE;
 
 $route['mantenimiento/mecanicos'] = 'mantenimiento/mecanico_controller/index';
+$route['mantenimiento/servicios/internos'] = 'mantenimiento/servicio_controller/internos';
+$route['mantenimiento/servicios/externos'] = 'mantenimiento/servicio_controller/externos';
 $route['mantenimiento/refacciones'] = 'mantenimiento/refaccion_controller/index';
 $route['mantenimiento/refacciones/(:num)'] = 'mantenimiento/refaccion_controller/refaccion_proveedor/$1';
 $route['mantenimiento/proveedores'] = 'mantenimiento/proveedor_controller/index';
@@ -63,4 +65,5 @@ $route['api/mecanicos'] = 'mantenimiento/api/mecanicos';
 $route['api/refacciones'] = 'mantenimiento/api/refacciones';
 $route['api/refacciones-proveedores'] = 'mantenimiento/api/refacciones_proveedores';
 $route['api/proveedores'] = 'mantenimiento/api/proveedores';
+$route['api/servicios'] = 'mantenimiento/api/servicios';
 

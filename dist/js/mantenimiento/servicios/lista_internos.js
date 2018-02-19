@@ -1,5 +1,5 @@
 var url_root = window.location.origin + '/fletes/index.php' // Base url
-var api_url = url_root + '/api/refacciones-proveedores/' // URL API Refacciones
+var api_url = url_root + '/api/servicios/' // URL API Servicios
 var accion = null; // Accion a ejecutar en modal
 var datos_temp = null // Referencia a datos temporales en edicion
 var elemento_temp = null // Referencia temporal de boton de edicion
@@ -7,29 +7,23 @@ var ls = 'es' //Lenguaje del sistema
 
 var elementos = {
     modal: $('#myModal'),
-    form_modal: $('#form-refaccion-proveedor'),
+    form_modal: $('#form-servicio'),
     tabla: $('#example1'),
     template_botones: $('#botones-accion').html(),
-    id_refaccion: 0,
 }
 
 $(document).ready(function () {
     llenarTabla()
     $(elementos.modal).on('show.bs.modal', function (e) {
         accion = $(e.relatedTarget).data('action')
-        $(this).find('.modal-title').text(accion + ' ' + lenguaje[ls]['refaccion_proveedor'])
+        $(this).find('.modal-title').text(accion + ' ' + lenguaje[ls]['servicio_interno'])
         if (accion == 'Nuevo') {
             $(elementos.form_modal)[0].reset()
         } else {
             elemento_temp = e.relatedTarget
             datos_temp = elementos.datatable.row($(elemento_temp).parent()).data()
             for (item in datos_temp) {
-                if (datos_temp[item] instanceof Object) {
-                    $(elementos.form_modal).find('#' + item).val(datos_temp[item].id) // Sirve solo para select
-                    $(elementos.form_modal).find('#id_' + item).val(datos_temp[item].id) // Para asignar id a objetos
-                } else {
-                    $(elementos.form_modal).find('#' + item).val(datos_temp[item])
-                }
+                $(elementos.form_modal).find('#' + item).val(datos_temp[item])
             }
         }
     })
@@ -38,7 +32,7 @@ $(document).ready(function () {
         e.preventDefault()
         var data = $(this).serialize()
         var metodo = accion == 'Nuevo' ? 'POST' : 'PUT'
-        data += accion == 'Nuevo' ? '&id_refaccion=' + elementos.id_refaccion : '&id_refaccion=' + elementos.id_refaccion + '&id=' + datos_temp.id
+        data += accion == 'Nuevo' ? '' : '&id=' + datos_temp.id
         $.ajax({
             url: api_url,
             data: data,
@@ -47,17 +41,13 @@ $(document).ready(function () {
                 actualizarInterfaz(accion, data)
             },
             error: function (e, d) {
-                if (e.status) {
-                    alertify.error(lenguaje[ls]['duplicado_error'])
-                    $(elementos.modal).modal('hide')
-                }
                 console.log(d)
                 console.log(e)
             }
         })
     })
 
-    $(elementos.tabla).on('click', '.eliminar-proveedor', function (e) {
+    $(elementos.tabla).on('click', '.eliminar-servicio', function (e) {
         elemento_temp = e.currentTarget
         datos_temp = elementos.datatable.row($(elemento_temp).parent()).data()
         alertify.confirm(lenguaje[ls]['borrar_titulo'], lenguaje[ls]['borrar_mensaje'], function (e) {
@@ -79,22 +69,27 @@ $(document).ready(function () {
 })
 
 function llenarTabla() {
-    elementos.id_refaccion = elementos.tabla.data('id')
     elementos.datatable = $(elementos.tabla).DataTable({
         "autoWidth": false,
         responsive: true,
-        "ajax": api_url + '?id_refaccion=' + elementos.id_refaccion,
+        "ajax": api_url + '?tipo=Interno',
         "columns": [
-            {'data': 'proveedor.nombre'},
-            {'data': 'proveedor.direccion'},
-            {'data': 'proveedor.telefono'},
-            {'data': 'costo'},
+            {'data': 'nombre'},
+            {'data': 'descripcion'},
+            {'data': 'categoria'},
+            {'data': 'tiempo_entrega'},
             {
                 "data": null,
                 "defaultContent": elementos.template_botones
             }
         ]
     });
+
+    $(elementos.tabla).on('click', '.ver-refacciones', function (e) {
+        elemento_temp = e.currentTarget
+        datos_temp = elementos.datatable.row($(elemento_temp).parent()).data()
+        window.location.href = window.location + '/' + datos_temp.id
+    })
 }
 
 function actualizarInterfaz(accion, datos) {
