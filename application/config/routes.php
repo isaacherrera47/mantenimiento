@@ -56,6 +56,7 @@ $route['translate_uri_dashes'] = FALSE;
 $route['mantenimiento/mecanicos'] = 'mantenimiento/mecanico_controller/index';
 $route['mantenimiento/servicios/internos'] = 'mantenimiento/servicio_controller/internos';
 $route['mantenimiento/servicios/externos'] = 'mantenimiento/servicio_controller/externos';
+$route['mantenimiento/servicios/(:num)'] = 'mantenimiento/servicio_controller/servicio_detalle/$1';
 $route['mantenimiento/refacciones'] = 'mantenimiento/refaccion_controller/index';
 $route['mantenimiento/refacciones/(:num)'] = 'mantenimiento/refaccion_controller/refaccion_proveedor/$1';
 $route['mantenimiento/proveedores'] = 'mantenimiento/proveedor_controller/index';
@@ -66,4 +67,5 @@ $route['api/refacciones'] = 'mantenimiento/api/refacciones';
 $route['api/refacciones-proveedores'] = 'mantenimiento/api/refacciones_proveedores';
 $route['api/proveedores'] = 'mantenimiento/api/proveedores';
 $route['api/servicios'] = 'mantenimiento/api/servicios';
+$route['api/servicios-proveedores'] = 'mantenimiento/api/servicios_proveedores';
 

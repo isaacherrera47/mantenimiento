@@ -10,6 +10,7 @@ lenguaje = {
 lenguaje['es']['mecanico'] = 'Mecanico'
 lenguaje['es']['servicio_interno'] = 'Servicio Interno'
 lenguaje['es']['servicio_externo'] = 'Servicio Externo'
+lenguaje['es']['servicio_proveedor'] = 'Proveedor de Servicio'
 lenguaje['es']['refaccion'] = 'Refacción'
 lenguaje['es']['refaccion_proveedor'] = 'Proveedor de Refacción'
 lenguaje['es']['proveedor'] = 'Proveedor'

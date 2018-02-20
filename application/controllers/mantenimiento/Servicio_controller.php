@@ -15,6 +15,8 @@ class Servicio_controller extends CI_Controller
     {
         parent::__construct();
         $this->load->helper('url');
+        $this->load->model('mantenimiento/servicio');
+        $this->load->model('mantenimiento/proveedor');
     }
 
     public function internos()
@@ -31,5 +33,17 @@ class Servicio_controller extends CI_Controller
         $this->load->view('templates/header');
         $this->load->view('mantenimiento/servicios/lista_externos');
         $this->load->view('templates/footer', $data);
+    }
+
+    public function servicio_detalle($id) {
+        if (! $data['servicio'] = $this->servicio->obtener($id)) {
+            $this->internos();
+            return true; // Raise 404
+        }
+        $data['proveedores'] = $this->proveedor->obtener_todos();
+        $data['script'] = 'mantenimiento/servicios/servicio_proveedor';
+        $this->load->view('templates/header');
+        $this->load->view('mantenimiento/servicios/servicio_proveedor', $data);
+        $this->load->view('templates/footer');
     }
 }
