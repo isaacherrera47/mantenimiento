@@ -85,10 +85,10 @@ function llenarTabla() {
         ]
     });
 
-    $(elementos.tabla).on('click', '.ver-refacciones', function (e) {
+    $(elementos.tabla).on('click', '.ver-proveedores', function (e) {
         elemento_temp = e.currentTarget
         datos_temp = elementos.datatable.row($(elemento_temp).parent()).data()
-        window.location.href = window.location + '/' + datos_temp.id
+        window.location.href = url_root + '/mantenimiento/servicios/' + datos_temp.id
     })
 }
 
