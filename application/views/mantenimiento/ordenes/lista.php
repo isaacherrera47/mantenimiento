@@ -348,29 +348,29 @@
                                             </div>
                                             <div class="col-md-12">
                                                 <div class="form-group">
-                                                    <label for="nombre">Descripcion</label>
-                                                    <textarea class="form-control" id="direccion"
-                                                              placeholder="Direccion" name="direccion">
+                                                    <label for="descripcion">Descripcion</label>
+                                                    <textarea class="form-control" id="descripcion"
+                                                              placeholder="Descripcion" name="descripcion"></textarea>
                                                 </div>
                                             </div>
                                             <div class="col-md-6">
                                                 <div class="form-group">
-                                                    <label for="nombre">Fecha de entrada</label>
-                                                    <input type="text" class="form-control datepicker" id="direccion"
-                                                           placeholder="Direccion" name="direccion">
+                                                    <label for="fecha_entrada">Fecha de entrada</label>
+                                                    <input type="text" class="form-control datepicker" id="fecha_entrada"
+                                                           placeholder="Fecha de Entrada" name="fecha_entrada">
                                                 </div>
                                             </div>
                                             <div class="col-md-6">
                                                 <div class="form-group">
-                                                    <label for="nombre">Fecha de salida</label>
-                                                    <input type="text" class="form-control datepicker" id="direccion"
-                                                           placeholder="Direccion" name="direccion">
+                                                    <label for="fecha_salida">Fecha de salida</label>
+                                                    <input type="text" class="form-control datepicker" id="fecha_salida"
+                                                           placeholder="Fecha de Salida" name="fecha_salida">
                                                 </div>
                                             </div>
                                             <div class="col-md-6">
                                                 <div class="form-group">
                                                     <label for="tipo">Tipo</label>
-                                                    <select name="tipo" id="tipo">
+                                                    <select class="form-control" name="tipo" id="tipo">
                                                         <option value="1">Tractor</option>
                                                         <option value="2">Caja</option>
                                                     </select>
@@ -378,8 +378,8 @@
                                             </div>
                                             <div class="col-md-6" id="cb-tractor">
                                                 <div class="form-group">
-                                                    <label for="tractor"></label>
-                                                    <select name="tractor" id="tractor">
+                                                    <label for="tractor">Tractor</label>
+                                                    <select class="form-control" name="tractor" id="tractor">
                                                         <? foreach ($tractores as $tractor): ?>
                                                             <option value="<?= $tractor['idtractor'] ?>">
                                                                 <?= $tractor['tractor'] ?>
@@ -390,8 +390,8 @@
                                             </div>
                                             <div class="col-md-6" id="cb-caja">
                                                 <div class="form-group">
-                                                    <label for="caja"></label>
-                                                    <select name="caja" id="caja">
+                                                    <label for="caja">Caja</label>
+                                                    <select class="form-control" name="caja" id="caja">
                                                         <? foreach ($cajas as $caja): ?>
                                                             <option value="<?= $caja['idCaja'] ?>">
                                                                 <?= $caja['caja'] ?>
@@ -426,9 +426,12 @@
                     <table id="example1" class="table table-bordered table-striped">
                         <thead>
                         <tr>
-                            <th>Nombre</th>
-                            <th>Direccion</th>
-                            <th>Telefono</th>
+                            <th>Servicio</th>
+                            <th>Descripcion</th>
+                            <th>Tipo</th>
+                            <th>Caja/Tractor</th>
+                            <th>Fecha de entrada</th>
+                            <th>Fecha de salida</th>
                             <th>Acciones</th>
                         </tr>
                         </thead>
@@ -436,9 +439,12 @@
                         </tbody>
                         <tfoot>
                         <tr>
-                            <th>Nombre</th>
-                            <th>Direccion</th>
-                            <th>Telefono</th>
+                            <th>Servicio</th>
+                            <th>Descripcion</th>
+                            <th>Tipo</th>
+                            <th>Caja/Tractor</th>
+                            <th>Fecha de entrada</th>
+                            <th>Fecha de salida</th>
                             <th>Acciones</th>
                         </tr>
                         </tfoot>
@@ -470,9 +476,6 @@
     </button>
     <button type="button" class="btn btn-danger btn-sm eliminar-proveedor">
         <i class="fa fa-trash"></i>
-    </button>
-    <button type="button" class="btn btn-info btn-sm ver-refacciones">
-        <i class="fa fa-wrench"></i>
     </button>
 </script>
 <!-- ./wrapper -->

@@ -10,13 +10,18 @@ var elementos = {
     form_modal: $('#form-proveedor'),
     tabla: $('#example1'),
     template_botones: $('#botones-accion').html(),
+    datepicker : $('.datepicker'),
+    cajas: $('#cb_cajas'),
+    tractores: $('#cb_tractores'),
 }
 
 $(document).ready(function () {
     llenarTabla()
+    elementos.datepicker.datepicker()
+    elementos.cajas.fadeOut()
     $(elementos.modal).on('show.bs.modal', function (e) {
         accion = $(e.relatedTarget).data('action')
-        $(this).find('.modal-title').text(accion + ' ' + lenguaje[ls]['refaccion'])
+        $(this).find('.modal-title').text(accion + ' ' + lenguaje[ls]['orden_ruta'])
         if (accion == 'Nuevo') {
             $(elementos.form_modal)[0].reset()
         } else {
@@ -74,12 +79,23 @@ function llenarTabla() {
         responsive: true,
         "ajax": api_url,
         "columns": [
-            {'data': 'nombre'},
-            {'data': 'direccion'},
-            {'data': 'telefono'},
+            {'data': 'servicio'},
+            {'data': 'descripcion'},
+            {'data': 'tipo.descripcion'},
+            {'data': null},
+            {'data': 'fecha_entrada'},
+            {'data': 'fecha_salida'},
             {
                 "data": null,
                 "defaultContent": elementos.template_botones
+            }
+        ],
+        columnDefs : [
+            {
+                targets: [3],
+                render: function (data, type, row) {
+                    return data.tractor ? data.tractor.tractor : data.caja.caja;
+                }
             }
         ]
     });
