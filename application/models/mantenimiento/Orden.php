@@ -17,6 +17,7 @@ class Orden extends CI_Model
     public $fecha_salida;
     public $factura;
     public $tipos;
+    public $costo;
 
     const TRACTOR = 1;
     const CAJA = 2;
@@ -34,20 +35,10 @@ class Orden extends CI_Model
         );
     }
 
-    public function obtener($array_id)
+    public function obtener($id)
     {
-        if (isset($array_id['id'])) {
-            return $this->obtener_primero($array_id);
-        }
-
-        $tmp_array = $this->db->get_where('ordenes_ruta', $array_id)->result_array();
+        $tmp_array = $this->db->get_where('ordenes_ruta', array('id' => $id))->row();
         return !is_null($tmp_array) && $tmp_array ? $this->obtener_relaciones($tmp_array) : $tmp_array;
-    }
-
-    private function obtener_primero($array_id)
-    {
-        $tmp_item = $this->db->get_where('ordenes_ruta', $array_id)->row();
-        return !is_null($tmp_item) && !empty($tmp_item) ? $this->obtener_relaciones($tmp_item) : $tmp_item;
     }
 
     public function obtener_todos()
@@ -58,7 +49,7 @@ class Orden extends CI_Model
 
     public function insertar($datos)
     {
-        return $this->db->insert('ordenes_ruta', $datos) ? $this->obtener(array('id' => $this->db->insert_id())) : false;
+        return $this->db->insert('ordenes_ruta', $datos) ? $this->obtener($this->db->insert_id()) : false;
     }
 
     public function eliminar($id)
@@ -66,10 +57,10 @@ class Orden extends CI_Model
         return $this->db->delete('ordenes_ruta', array('id' => $id));
     }
 
-    public function actualizar($array_id, $datos)
+    public function actualizar($id, $datos)
     {
-        $this->db->where($array_id);
-        return $this->db->update('ordenes_ruta', $datos) ? $this->obtener($array_id) : false;
+        $this->db->where(array('id' => $id));
+        return $this->db->update('ordenes_ruta', $datos) ? $this->obtener($id) : false;
     }
 
     private function obtener_relaciones($obj)
@@ -78,10 +69,12 @@ class Orden extends CI_Model
             foreach ($obj as $key => $item) {
                 if ($item['tipo'] == self::TRACTOR) {
                     if ($obj[$key]['tractor'] = $this->db->get_where('tractores', array('idtractor' => $item['id_objeto']))->row()) {
+                        $obj[$key]['tractor']->id = $obj[$key]['tractor']->idtractor;
                         unset($obj[$key]['id_objeto']);
                     }
                 } else {
                     if ($obj[$key]['caja'] = $this->db->get_where('cajas', array('idCaja' => $item['id_objeto']))->row()) {
+                        $obj[$key]['caja']->id = $obj[$key]['caja']->idCaja;
                         unset($obj[$key]['id_objeto']);
                     }
                 }
@@ -90,13 +83,16 @@ class Orden extends CI_Model
         } else {
             if ($obj->tipo == self::TRACTOR) {
                 if ($obj->tractor = $this->db->get_where('tractores', array('idtractor' => $obj->id_objeto))->row()) {
+                    $obj->tractor->id = $obj->tractor->idtractor;
                     unset($obj->id_objeto);
                 }
             } else {
                 if ($obj->caja = $this->db->get_where('cajas', array('idCaja' => $obj->id_objeto))->row()) {
+                    $obj->caja->id = $obj->caja->idCaja;
                     unset($obj->id_objeto);
                 }
             }
+            $obj->tipo = $this->tipos[$obj->tipo];
         }
         return $obj;
     }
@@ -110,17 +106,5 @@ class Orden extends CI_Model
             }
         }
         return $clean_array;
-    }
-
-    public function existe_registro($id_refaccion, $id_proveedor, $id_row = null)
-    {
-        $where_clause = array('id_refaccion' => $id_refaccion, 'id_proveedor' => $id_proveedor);
-        if ($row = $this->db->get_where('ordenes_ruta', $where_clause)->row()) {
-            if ($id_row === null || $row->id != $id_row) {
-                return true;
-            }
-        }
-
-        return false;
     }
 }

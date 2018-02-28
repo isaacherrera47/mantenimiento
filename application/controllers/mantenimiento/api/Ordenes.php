@@ -26,16 +26,38 @@ class Ordenes extends REST_Controller
 
     public function index_post()
     {
+        $config = array();
+        $config['upload_path'] = './uploads/';
+        $config['allowed_types'] = 'gif|jpg|png';
+        $config['overwrite'] = true;
+        $this->load->library('upload');
+        $this->upload->initialize($config);
+
         $datos = array(
-            'nombre' => $this->post('nombre'),
-            'direccion' => $this->post('direccion'),
-            'telefono' => $this->post('telefono'),
+            'tipo' => $this->post('tipo'),
+            'servicio' => $this->post('servicio'),
+            'descripcion' => $this->post('descripcion'),
+            'fecha_entrada' => $this->post('fecha_entrada'),
+            'fecha_salida' => $this->post('fecha_salida'),
+            'costo' => $this->post('costo'),
         );
-        if ($result = $this->orden->insertar($datos)) {
-            return $this->response($result, 201);
-        } else {
-            return $this->response(null, 500);
+
+        $datos['id_objeto'] = $this->post('tipo') == 2 ? $this->post('caja') : $this->post('tractor');
+
+        if ($this->upload->do_upload('factura')) {
+            $datos['factura'] = $this->upload->data('file_name'); //TODO: Implementar operaciones de borrado
         }
+
+        if ($id = $this->post('id')) {
+            if ($result = $this->orden->actualizar($id, $datos)) {
+                return $this->response($result, 200);
+            }
+        } else {
+            if ($result = $this->orden->insertar($datos)) {
+                return $this->response($result, 201);
+            }
+        }
+        return $this->response(null, 500);
     }
 
     public function index_delete()
@@ -46,21 +68,6 @@ class Ordenes extends REST_Controller
             } else {
                 return $this->response(array('result' => 'Error'), 404);
             }
-        }
-    }
-
-    public function index_put()
-    {
-        $datos = array(
-            'nombre' => $this->put('nombre'),
-            'direccion' => $this->put('direccion'),
-            'telefono' => $this->put('telefono'),
-        );
-
-        if ($result = $this->orden->actualizar($this->put('id'), $datos)) {
-            return $this->response($result, 200);
-        } else {
-            return $this->response(null, 500);
         }
     }
 }

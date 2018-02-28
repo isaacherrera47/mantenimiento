@@ -308,7 +308,7 @@
                 <div class="col-md-5 col-md-offset-7 col-sm-12">
                     <div style="float: right; margin-bottom: 15px">
                         <div class="btn-group">
-                            <button type="button" id="agregar-mecanico" class="btn btn-block btn-success"
+                            <button type="button" id="agregar-orden" class="btn btn-block btn-success"
                                     data-toggle="modal" data-action="Nuevo" data-target="#myModal">
                                 <i class="fa fa-fw fa-plus"></i> Agregar orden de servicio en ruta
                             </button>
@@ -328,7 +328,7 @@
                                 </button>
                                 <h4 class="modal-title"></h4>
                             </div>
-                            <form id="form-proveedor">
+                            <form id="form-orden" enctype="multipart/form-data">
                                 <div class="modal-body">
                                     <div class="box-body">
                                         <div class="row">
@@ -400,6 +400,12 @@
                                                     </select>
                                                 </div>
                                             </div>
+                                            <div class="col-md-12">
+                                                <div class="form-group">
+                                                    <label for="factura">Factura</label>
+                                                    <input type="file" id="factura" name="factura">
+                                                </div>
+                                            </div>
                                         </div>
                                     </div>
                                 </div>
@@ -432,6 +438,7 @@
                             <th>Caja/Tractor</th>
                             <th>Fecha de entrada</th>
                             <th>Fecha de salida</th>
+                            <th>Costo</th>
                             <th>Acciones</th>
                         </tr>
                         </thead>
@@ -445,6 +452,7 @@
                             <th>Caja/Tractor</th>
                             <th>Fecha de entrada</th>
                             <th>Fecha de salida</th>
+                            <th>Costo</th>
                             <th>Acciones</th>
                         </tr>
                         </tfoot>

@@ -1,47 +1,67 @@
 var url_root = window.location.origin + '/fletes/index.php' // Base url
-var api_url = url_root + '/api/ordenes/en-ruta' // URL API Proveedores
+var api_url = url_root + '/api/ordenes/en-ruta' // URL API Ordenes en ruta.
 var accion = null; // Accion a ejecutar en modal
 var datos_temp = null // Referencia a datos temporales en edicion
 var elemento_temp = null // Referencia temporal de boton de edicion
 var ls = 'es' //Lenguaje del sistema
+var image_path = window.location.origin + '/fletes/uploads/'
 
 var elementos = {
     modal: $('#myModal'),
-    form_modal: $('#form-proveedor'),
+    form_modal: $('#form-orden'),
     tabla: $('#example1'),
     template_botones: $('#botones-accion').html(),
-    datepicker : $('.datepicker'),
-    cajas: $('#cb_cajas'),
-    tractores: $('#cb_tractores'),
+    datepicker: $('.datepicker'),
+    cajas: $('#cb-caja'),
+    tractores: $('#cb-tractor'),
+    tipo_objeto: $('#tipo'),
+    files_input: ['factura'],
 }
 
 $(document).ready(function () {
     llenarTabla()
-    elementos.datepicker.datepicker()
-    elementos.cajas.fadeOut()
+    elementos.datepicker.datepicker({
+        format: 'yyyy-mm-dd',
+    })
     $(elementos.modal).on('show.bs.modal', function (e) {
-        accion = $(e.relatedTarget).data('action')
-        $(this).find('.modal-title').text(accion + ' ' + lenguaje[ls]['orden_ruta'])
-        if (accion == 'Nuevo') {
-            $(elementos.form_modal)[0].reset()
-        } else {
-            elemento_temp = e.relatedTarget
-            datos_temp = elementos.datatable.row($(elemento_temp).parent()).data()
-            for (item in datos_temp) {
-                $(elementos.form_modal).find('#' + item).val(datos_temp[item])
+        if (e.namespace == 'bs.modal') {
+            accion = $(e.relatedTarget).data('action')
+            $(this).find('.modal-title').text(accion + ' ' + lenguaje[ls]['orden_ruta'])
+            $('.actual').remove()  //Remueve enlaces existentes a facturas.
+            if (accion == 'Nuevo') {
+                $(elementos.form_modal)[0].reset()
+            } else {
+                elemento_temp = e.relatedTarget
+                datos_temp = elementos.datatable.row($(elemento_temp).parent()).data()
+                for (item in datos_temp) {
+                    if (datos_temp[item] instanceof Object) {
+                        $(elementos.form_modal).find('#' + item).val(datos_temp[item].id) // Sirve solo para select
+                        $(elementos.form_modal).find('#id_' + item).val(datos_temp[item].id) // Para asignar id a objetos
+                    } else if (elementos.files_input.indexOf(item) == -1) {
+                        $(elementos.form_modal).find('#' + item).val(datos_temp[item])
+                    } else if(datos_temp[item] != null){
+                        var el = '<a class="actual" target="_blank" href="'+ image_path + datos_temp[item] +'"> Factura actual </a>'
+                        $(elementos.form_modal).find('#' + item).after(el)
+                    }
+                }
             }
+            alternarCombo()
         }
     })
 
-    $(elementos.form_modal).on('submit', function (e) {
+    elementos.form_modal.on('submit', function (e) {
         e.preventDefault()
-        var data = $(this).serialize()
-        var metodo = accion == 'Nuevo' ? 'POST' : 'PUT'
-        data += accion == 'Nuevo' ? '' : '&id=' + datos_temp.id
+        var data = new FormData($(this)[0])
+        if (accion != 'Nuevo') {
+            data.append('id', datos_temp.id)
+        }
+
         $.ajax({
             url: api_url,
             data: data,
-            method: metodo,
+            processData: false,
+            contentType: false,
+            method: 'POST',
             success: function (data) {
                 actualizarInterfaz(accion, data)
             },
@@ -71,7 +91,21 @@ $(document).ready(function () {
         }, function (e) {
         })
     })
+
+    $(elementos.tipo_objeto).on('change', function (e) {
+        alternarCombo()
+    })
 })
+
+function alternarCombo() {
+    if (elementos.tipo_objeto.val() == "1") {
+        elementos.cajas.fadeOut()
+        elementos.tractores.fadeIn()
+    } else {
+        elementos.cajas.fadeIn()
+        elementos.tractores.fadeOut()
+    }
+}
 
 function llenarTabla() {
     elementos.datatable = $(elementos.tabla).DataTable({
@@ -85,12 +119,13 @@ function llenarTabla() {
             {'data': null},
             {'data': 'fecha_entrada'},
             {'data': 'fecha_salida'},
+            {'data': 'costo'},
             {
                 "data": null,
                 "defaultContent": elementos.template_botones
             }
         ],
-        columnDefs : [
+        columnDefs: [
             {
                 targets: [3],
                 render: function (data, type, row) {
