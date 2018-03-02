@@ -425,7 +425,7 @@
 
             <div class="box">
                 <div class="box-header">
-                    <h3 class="box-title">Lista de proveedores</h3>
+                    <h3 class="box-title">Lista de servicios en ruta</h3>
                 </div>
                 <!-- /.box-header -->
                 <div class="box-body">
@@ -478,11 +478,11 @@
     <div class="control-sidebar-bg"></div>
 </div>
 <script id="botones-accion" type="text/x-custom-template">
-    <button type="button" class="btn bg-light-blue btn-sm editar-proveedor" data-toggle="modal"
+    <button type="button" class="btn bg-light-blue btn-sm editar-orden" data-toggle="modal"
             data-target="#myModal" data-action="Editar">
         <i class="fa fa-pencil"></i>
     </button>
-    <button type="button" class="btn btn-danger btn-sm eliminar-proveedor">
+    <button type="button" class="btn btn-danger btn-sm eliminar-orden">
         <i class="fa fa-trash"></i>
     </button>
 </script>

@@ -62,7 +62,9 @@ $route['mantenimiento/refacciones/(:num)'] = 'mantenimiento/refaccion_controller
 $route['mantenimiento/proveedores'] = 'mantenimiento/proveedor_controller/index';
 $route['mantenimiento/proveedores/(:num)'] = 'mantenimiento/proveedor_controller/proveedor_refaccion/$1';
 $route['mantenimiento/ordenes/en-ruta'] = 'mantenimiento/orden_controller/en_ruta';
+$route['mantenimiento/ordenes/manual'] = 'mantenimiento/orden_controller/manual';
 
+// API
 $route['api/mecanicos'] = 'mantenimiento/api/mecanicos';
 $route['api/refacciones'] = 'mantenimiento/api/refacciones';
 $route['api/refacciones-proveedores'] = 'mantenimiento/api/refacciones_proveedores';

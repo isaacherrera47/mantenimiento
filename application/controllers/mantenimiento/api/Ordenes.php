@@ -9,22 +9,61 @@ class Ordenes extends REST_Controller
     public function __construct()
     {
         parent::__construct();
-        $this->load->model('mantenimiento/orden');
+        $this->load->model('mantenimiento/orden_ruta');
         $this->load->helper('url');
     }
 
     public function index_get()
     {
+        switch ($this->query('tipo_orden')) {
+            case 'ruta':
+                $this->get_ruta();
+                break;
+            case 'manual':
+                break;
+            default:
+                return $this->response(null, 400);
+        }
+    }
+
+    public function index_post()
+    {
+        switch ($this->query('tipo_orden')) {
+            case 'ruta':
+                $this->post_ruta();
+                break;
+            case 'manual':
+                break;
+            default:
+                return $this->response(null, 400);
+        }
+    }
+
+    public function index_delete()
+    {
+        switch ($this->query('tipo_orden')) {
+            case 'ruta':
+                $this->delete_ruta();
+                break;
+            case 'manual':
+                break;
+            default:
+                return $this->response(null, 400);
+        }
+    }
+
+    private function get_ruta()
+    {
         if (($id = $this->get('id')) && is_numeric($this->get('id'))) {
-            $response['data'] = $this->orden->obtener($id);
+            $response['data'] = $this->orden_ruta->obtener($id);
         } else {
-            $response['data'] = $this->orden->obtener_todos();
+            $response['data'] = $this->orden_ruta->obtener_todos();
         }
 
         return $this->response($response, 200);
     }
 
-    public function index_post()
+    private function post_ruta()
     {
         $config = array();
         $config['upload_path'] = './uploads/';
@@ -49,21 +88,21 @@ class Ordenes extends REST_Controller
         }
 
         if ($id = $this->post('id')) {
-            if ($result = $this->orden->actualizar($id, $datos)) {
+            if ($result = $this->orden_ruta->actualizar($id, $datos)) {
                 return $this->response($result, 200);
             }
         } else {
-            if ($result = $this->orden->insertar($datos)) {
+            if ($result = $this->orden_ruta->insertar($datos)) {
                 return $this->response($result, 201);
             }
         }
         return $this->response(null, 500);
     }
 
-    public function index_delete()
+    private function delete_ruta()
     {
         if (($id = $this->query('id')) && is_numeric($this->query('id'))) {
-            if ($this->orden->eliminar($id)) {
+            if ($this->orden_ruta->eliminar($id)) {
                 return $this->response(array('result' => 'Success'), 200);
             } else {
                 return $this->response(array('result' => 'Error'), 404);

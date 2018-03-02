@@ -1,5 +1,5 @@
 var url_root = window.location.origin + '/fletes/index.php' // Base url
-var api_url = url_root + '/api/ordenes/en-ruta' // URL API Ordenes en ruta.
+var api_url = url_root + '/api/ordenes/en-ruta/?tipo_orden=ruta' // URL API Ordenes en ruta.
 var accion = null; // Accion a ejecutar en modal
 var datos_temp = null // Referencia a datos temporales en edicion
 var elemento_temp = null // Referencia temporal de boton de edicion
@@ -72,13 +72,13 @@ $(document).ready(function () {
         })
     })
 
-    $(elementos.tabla).on('click', '.eliminar-proveedor', function (e) {
+    $(elementos.tabla).on('click', '.eliminar-orden', function (e) {
         elemento_temp = e.currentTarget
         datos_temp = elementos.datatable.row($(elemento_temp).parent()).data()
         alertify.confirm(lenguaje[ls]['borrar_titulo'], lenguaje[ls]['borrar_mensaje'], function (e) {
             // Por estandar, el metodo DELETE solo recibe parametros en URL
             $.ajax({
-                url: api_url + '?id=' + datos_temp.id,
+                url: api_url + '&id=' + datos_temp.id,
                 method: 'DELETE',
                 success: function () {
                     elementos.datatable.row($(elemento_temp).parent()).remove().draw()

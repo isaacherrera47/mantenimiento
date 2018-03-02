@@ -1,12 +1,6 @@
 <?php
-/**
- * Created by PhpStorm.
- * User: intekel01
- * Date: 9/02/18
- * Time: 03:54 PM
- */
 
-class Orden extends CI_Model
+class Orden_manual extends CI_Model
 {
     public $id;
     public $tipo;

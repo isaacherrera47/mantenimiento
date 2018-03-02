@@ -12,7 +12,6 @@ class Orden_controller extends CI_Controller
     {
         parent::__construct();
         $this->load->helper('url');
-        $this->load->model('mantenimiento/orden');
         $this->load->database();
     }
 
@@ -21,9 +20,18 @@ class Orden_controller extends CI_Controller
 
         $data['cajas'] = $this->db->get('cajas')->result_array();
         $data['tractores'] = $this->db->get('tractores')->result_array();
-        $data['script'] = 'mantenimiento/ordenes/lista';
+        $data['script'] = 'mantenimiento/ordenes/en_ruta';
         $this->load->view('templates/header');
-        $this->load->view('mantenimiento/ordenes/lista', $data);
+        $this->load->view('mantenimiento/ordenes/en_ruta', $data);
+        $this->load->view('templates/footer', $data);
+    }
+
+    public function manual() {
+        $data['cajas'] = $this->db->get('cajas')->result_array();
+        $data['tractores'] = $this->db->get('tractores')->result_array();
+        $data['script'] = 'mantenimiento/ordenes/manual';
+        $this->load->view('templates/header');
+        $this->load->view('mantenimiento/ordenes/manual', $data);
         $this->load->view('templates/footer', $data);
     }
 
