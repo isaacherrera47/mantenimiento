@@ -16,6 +16,7 @@ lenguaje['es']['refaccion_proveedor'] = 'Proveedor de Refacción'
 lenguaje['es']['proveedor'] = 'Proveedor'
 lenguaje['es']['proveedor_refaccion'] = 'Refacción de Proveedor'
 lenguaje['es']['orden_ruta'] = 'Orden de Servicio en Ruta'
+lenguaje['es']['orden_manual_ex'] = 'Orden de Mantenimiento Externo'
 // Confirmaciones generales
 lenguaje['es']['borrar_titulo'] = 'Borrar Elemento'
 lenguaje['es']['borrar_mensaje'] = '¿Estás seguro?'

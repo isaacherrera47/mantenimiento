@@ -31,30 +31,30 @@ class Orden_manual extends CI_Model
 
     public function obtener($id)
     {
-        $tmp_array = $this->db->get_where('ordenes_ruta', array('id' => $id))->row();
+        $tmp_array = $this->db->get_where('ordenes_mexterno', array('id' => $id))->row();
         return !is_null($tmp_array) && $tmp_array ? $this->obtener_relaciones($tmp_array) : $tmp_array;
     }
 
     public function obtener_todos()
     {
-        $tmp_array = $this->db->get('ordenes_ruta')->result_array();
+        $tmp_array = $this->db->get('ordenes_mexterno')->result_array();
         return !is_null($tmp_array) && $tmp_array ? $this->obtener_relaciones($tmp_array) : $tmp_array;
     }
 
     public function insertar($datos)
     {
-        return $this->db->insert('ordenes_ruta', $datos) ? $this->obtener($this->db->insert_id()) : false;
+        return $this->db->insert('ordenes_mexterno', $datos) ? $this->obtener($this->db->insert_id()) : false;
     }
 
     public function eliminar($id)
     {
-        return $this->db->delete('ordenes_ruta', array('id' => $id));
+        return $this->db->delete('ordenes_mexterno', array('id' => $id));
     }
 
     public function actualizar($id, $datos)
     {
         $this->db->where(array('id' => $id));
-        return $this->db->update('ordenes_ruta', $datos) ? $this->obtener($id) : false;
+        return $this->db->update('ordenes_mexterno', $datos) ? $this->obtener($id) : false;
     }
 
     private function obtener_relaciones($obj)

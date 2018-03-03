@@ -332,25 +332,32 @@
                                 <div class="modal-body">
                                     <div class="box-body">
                                         <div class="row">
-                                            <div class="col-md-6">
-                                                <div class="form-group">
-                                                    <label for="servicio">Servicio</label>
-                                                    <input type="text" class="form-control" id="servicio"
-                                                           placeholder="Servicio" name="servicio">
-                                                </div>
-                                            </div>
-                                            <div class="col-md-6">
-                                                <div class="form-group">
-                                                    <label for="costo">Costo</label>
-                                                    <input type="number" class="form-control" id="costo"
-                                                           placeholder="Costo" name="costo">
-                                                </div>
-                                            </div>
+											<div class="col-md-6" id="cb-proveedor">
+												<div class="form-group">
+													<label for="proveedor">Proveedor</label>
+													<select class="form-control" name="proveedor" id="proveedor">
+														<option value="0">Selecccione uno</option>
+														<? foreach ($proveedores as $proveedor): ?>
+															<option value="<?= $proveedor['id'] ?>">
+																<?= $proveedor['nombre'] ?>
+															</option>
+														<? endforeach ?>
+													</select>
+												</div>
+											</div>
+											<div class="col-md-6">
+												<div class="form-group">
+													<label for="servicios">Servicios</label>
+													<select class="form-control" name="servicios[]" multiple disabled id="servicios">
+
+													</select>
+												</div>
+											</div>
                                             <div class="col-md-12">
                                                 <div class="form-group">
-                                                    <label for="descripcion">Descripcion</label>
-                                                    <textarea class="form-control" id="descripcion"
-                                                              placeholder="Descripcion" name="descripcion"></textarea>
+                                                    <label for="notas">Notas</label>
+                                                    <textarea class="form-control" id="notas"
+                                                              placeholder="Notas" name="notas"></textarea>
                                                 </div>
                                             </div>
                                             <div class="col-md-6">
@@ -425,20 +432,19 @@
 
             <div class="box">
                 <div class="box-header">
-                    <h3 class="box-title">Lista de proveedores</h3>
+                    <h3 class="box-title">Lista de ordenes de mantenimiento externo</h3>
                 </div>
                 <!-- /.box-header -->
                 <div class="box-body">
                     <table id="example1" class="table table-bordered table-striped">
                         <thead>
                         <tr>
-                            <th>Servicio</th>
-                            <th>Descripcion</th>
+                            <th>Proveedor</th>
+                            <th>Notas</th>
                             <th>Tipo</th>
                             <th>Caja/Tractor</th>
                             <th>Fecha de entrada</th>
                             <th>Fecha de salida</th>
-                            <th>Costo</th>
                             <th>Acciones</th>
                         </tr>
                         </thead>
@@ -446,14 +452,13 @@
                         </tbody>
                         <tfoot>
                         <tr>
-                            <th>Servicio</th>
-                            <th>Descripcion</th>
-                            <th>Tipo</th>
-                            <th>Caja/Tractor</th>
-                            <th>Fecha de entrada</th>
-                            <th>Fecha de salida</th>
-                            <th>Costo</th>
-                            <th>Acciones</th>
+							<th>Proveedor</th>
+							<th>Notas</th>
+							<th>Tipo</th>
+							<th>Caja/Tractor</th>
+							<th>Fecha de entrada</th>
+							<th>Fecha de salida</th>
+							<th>Acciones</th>
                         </tr>
                         </tfoot>
                     </table>

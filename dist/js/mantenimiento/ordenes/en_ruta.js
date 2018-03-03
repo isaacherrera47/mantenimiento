@@ -1,5 +1,5 @@
 var url_root = window.location.origin + '/fletes/index.php' // Base url
-var api_url = url_root + '/api/ordenes/en-ruta/?tipo_orden=ruta' // URL API Ordenes en ruta.
+var api_url = url_root + '/api/ordenes/?tipo_orden=ruta' // URL API Ordenes en ruta.
 var accion = null; // Accion a ejecutar en modal
 var datos_temp = null // Referencia a datos temporales en edicion
 var elemento_temp = null // Referencia temporal de boton de edicion

@@ -10,6 +10,7 @@ class Ordenes extends REST_Controller
     {
         parent::__construct();
         $this->load->model('mantenimiento/orden_ruta');
+        $this->load->model('mantenimiento/orden_manual');
         $this->load->helper('url');
     }
 

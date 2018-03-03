@@ -29,6 +29,7 @@ class Orden_controller extends CI_Controller
     public function manual() {
         $data['cajas'] = $this->db->get('cajas')->result_array();
         $data['tractores'] = $this->db->get('tractores')->result_array();
+        $data['proveedores'] = $this->db->get('proveedores')->result_array();
         $data['script'] = 'mantenimiento/ordenes/manual';
         $this->load->view('templates/header');
         $this->load->view('mantenimiento/ordenes/manual', $data);

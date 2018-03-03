@@ -72,5 +72,5 @@ $route['api/proveedores'] = 'mantenimiento/api/proveedores';
 $route['api/servicios'] = 'mantenimiento/api/servicios';
 $route['api/servicios-proveedores'] = 'mantenimiento/api/servicios_proveedores';
 $route['api/servicios-refacciones'] = 'mantenimiento/api/servicios_refacciones';
-$route['api/ordenes/en-ruta'] = 'mantenimiento/api/ordenes';
+$route['api/ordenes'] = 'mantenimiento/api/ordenes';
 
