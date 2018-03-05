@@ -331,11 +331,11 @@
                             <form id="form-orden" enctype="multipart/form-data">
                                 <div class="modal-body">
                                     <div class="box-body">
-                                        <div class="row">
+										<div class="row" id="hidden_edit">
 											<div class="col-md-6" id="cb-proveedor">
 												<div class="form-group">
 													<label for="proveedor">Proveedor</label>
-													<select class="form-control" name="proveedor" id="proveedor">
+													<select class="form-control" name="id_proveedor" id="id_proveedor">
 														<option value="0">Selecccione uno</option>
 														<? foreach ($proveedores as $proveedor): ?>
 															<option value="<?= $proveedor['id'] ?>">
@@ -348,11 +348,13 @@
 											<div class="col-md-6">
 												<div class="form-group">
 													<label for="servicios">Servicios</label>
-													<select class="form-control" name="servicios[]" multiple disabled id="servicios">
-
+													<select class="form-control" name="servicios[]" multiple id="servicios">
+														<option></option>
 													</select>
 												</div>
 											</div>
+										</div>
+                                        <div class="row">
                                             <div class="col-md-12">
                                                 <div class="form-group">
                                                     <label for="notas">Notas</label>
@@ -483,12 +485,15 @@
     <div class="control-sidebar-bg"></div>
 </div>
 <script id="botones-accion" type="text/x-custom-template">
-    <button type="button" class="btn bg-light-blue btn-sm editar-proveedor" data-toggle="modal"
+    <button type="button" class="btn bg-light-blue btn-sm editar-orden" data-toggle="modal"
             data-target="#myModal" data-action="Editar">
         <i class="fa fa-pencil"></i>
     </button>
-    <button type="button" class="btn btn-danger btn-sm eliminar-proveedor">
+    <button type="button" class="btn btn-danger btn-sm eliminar-orden">
         <i class="fa fa-trash"></i>
     </button>
+	<button type="button" class="btn btn-info btn-sm ver-detalle">
+		<i class="fa fa-list-ul"></i>
+	</button>
 </script>
 <!-- ./wrapper -->

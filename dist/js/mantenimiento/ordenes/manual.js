@@ -1,5 +1,6 @@
 var url_root = window.location.origin + '/fletes/index.php' // Base url
 var api_url = url_root + '/api/ordenes/?tipo_orden=manual' // URL API Ordenes en ruta.
+var api_servicios = url_root + '/api/servicios-proveedores/'
 var accion = null; // Accion a ejecutar en modal
 var datos_temp = null // Referencia a datos temporales en edicion
 var elemento_temp = null // Referencia temporal de boton de edicion
@@ -10,11 +11,14 @@ var elementos = {
 	modal: $('#myModal'),
 	form_modal: $('#form-orden'),
 	tabla: $('#example1'),
+	proveedor: $('#id_proveedor'),
+	servicios: $('#servicios'),
 	template_botones: $('#botones-accion').html(),
 	datepicker: $('.datepicker'),
 	cajas: $('#cb-caja'),
 	tractores: $('#cb-tractor'),
 	tipo_objeto: $('#tipo'),
+	no_editable: $('#hidden_edit'),
 	files_input: ['factura'],
 }
 
@@ -29,8 +33,10 @@ $(document).ready(function () {
 			$(this).find('.modal-title').text(accion + ' ' + lenguaje[ls]['orden_manual_ex'])
 			$('.actual').remove()  //Remueve enlaces existentes a facturas.
 			if (accion == 'Nuevo') {
+				elementos.no_editable.fadeIn()
 				$(elementos.form_modal)[0].reset()
 			} else {
+				elementos.no_editable.fadeOut()
 				elemento_temp = e.relatedTarget
 				datos_temp = elementos.datatable.row($(elemento_temp).parent()).data()
 				for (item in datos_temp) {
@@ -39,8 +45,8 @@ $(document).ready(function () {
 						$(elementos.form_modal).find('#id_' + item).val(datos_temp[item].id) // Para asignar id a objetos
 					} else if (elementos.files_input.indexOf(item) == -1) {
 						$(elementos.form_modal).find('#' + item).val(datos_temp[item])
-					} else if(datos_temp[item] != null){
-						var el = '<a class="actual" target="_blank" href="'+ image_path + datos_temp[item] +'"> Factura actual </a>'
+					} else if (datos_temp[item] != null) {
+						var el = '<a class="actual" target="_blank" href="' + image_path + datos_temp[item] + '"> Factura actual </a>'
 						$(elementos.form_modal).find('#' + item).after(el)
 					}
 				}
@@ -70,6 +76,25 @@ $(document).ready(function () {
 				console.log(e)
 			}
 		})
+	})
+
+	elementos.proveedor.on('change', function (e) {
+		var id_proveedor = $(this).val()
+
+		if (id_proveedor != '0') {
+			$.ajax({
+				url: api_servicios,
+				data: {'id_proveedor': id_proveedor},
+				method: 'GET',
+				success: function (result) {
+					elementos.servicios.empty()
+					$.each(result.data, function (key, value) {
+						elementos.servicios.append($('<option></option>').
+						attr('value', value.servicio.id).text(value.servicio.nombre))
+					})
+				}
+			})
+		}
 	})
 
 	$(elementos.tabla).on('click', '.eliminar-orden', function (e) {
@@ -113,8 +138,8 @@ function llenarTabla() {
 		responsive: true,
 		"ajax": api_url,
 		"columns": [
-			{'data': 'servicio'},
-			{'data': 'descripcion'},
+			{'data': 'proveedor.nombre'},
+			{'data': 'notas'},
 			{'data': 'tipo.descripcion'},
 			{'data': null},
 			{'data': 'fecha_entrada'},
@@ -134,7 +159,7 @@ function llenarTabla() {
 		]
 	});
 
-	$(elementos.tabla).on('click', '.ver-refacciones', function (e) {
+	$(elementos.tabla).on('click', '.ver-detalle', function (e) {
 		elemento_temp = e.currentTarget
 		datos_temp = elementos.datatable.row($(elemento_temp).parent()).data()
 		window.location.href = window.location + '/' + datos_temp.id
