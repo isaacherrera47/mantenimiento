@@ -441,6 +441,7 @@
                     <table id="example1" class="table table-bordered table-striped">
                         <thead>
                         <tr>
+                            <th>ID</th>
                             <th>Proveedor</th>
                             <th>Notas</th>
                             <th>Tipo</th>
@@ -454,6 +455,7 @@
                         </tbody>
                         <tfoot>
                         <tr>
+							<th>ID</th>
 							<th>Proveedor</th>
 							<th>Notas</th>
 							<th>Tipo</th>

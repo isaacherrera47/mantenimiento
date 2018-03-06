@@ -22,7 +22,7 @@ class Servicio_proveedor extends CI_Model
 
     public function obtener($array_id)
     {
-        if (isset($array_id['id_servicio']) && isset($array_id['id_proveedor']) || isset($array_id['id'])) {
+        if ((isset($array_id['id_servicio']) && isset($array_id['id_proveedor'])) || isset($array_id['id'])) {
             return $this->obtener_primero($array_id);
         }
 

@@ -26,19 +26,26 @@ class Orden_controller extends CI_Controller
 		$this->load->view('templates/footer', $data);
 	}
 
-	public function manual()
+	public function manual_externo()
 	{
 		$data['cajas'] = $this->db->get('cajas')->result_array();
 		$data['tractores'] = $this->db->get('tractores')->result_array();
 		$data['proveedores'] = $this->db->get('proveedores')->result_array();
-		$data['script'] = 'mantenimiento/ordenes/manual';
+		$data['script'] = 'mantenimiento/ordenes/manual_externo';
 		$this->load->view('templates/header');
-		$this->load->view('mantenimiento/ordenes/manual', $data);
+		$this->load->view('mantenimiento/ordenes/manual_externo', $data);
 		$this->load->view('templates/footer', $data);
 	}
 
-	public function manual_detalle($id) {
-		return 'Hola' . $id;
+	public function manual_externo_detalle($id_orden, $id_proveedor) {
+		$this->load->model('mantenimiento/servicio_proveedor');
+		$this->load->model('mantenimiento/orden_manual_externo');
+		$data['servicios'] = $this->servicio_proveedor->obtener(array('id_proveedor' => $id_proveedor));
+		$data['orden'] = $this->orden_manual_externo->obtener($id_orden);
+		$data['script'] = 'mantenimiento/ordenes/manual_externo_detalle';
+		$this->load->view('templates/header');
+		$this->load->view('mantenimiento/ordenes/manual_externo_detalle', $data);
+		$this->load->view('templates/footer', $data);
 	}
 
 

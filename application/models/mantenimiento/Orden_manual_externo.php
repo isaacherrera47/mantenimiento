@@ -1,6 +1,6 @@
 <?php
 
-class Orden_manual extends CI_Model
+class Orden_manual_externo extends CI_Model
 {
 	const TRACTOR = 1;
 	const CAJA = 2;

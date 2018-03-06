@@ -1,5 +1,5 @@
 var url_root = window.location.origin + '/fletes/index.php' // Base url
-var api_url = url_root + '/api/ordenes/?tipo_orden=manual' // URL API Ordenes en ruta.
+var api_url = url_root + '/api/ordenes/?tipo_orden=manual_externo' // URL API Ordenes en ruta.
 var api_servicios = url_root + '/api/servicios-proveedores/'
 var accion = null; // Accion a ejecutar en modal
 var datos_temp = null // Referencia a datos temporales en edicion
@@ -138,6 +138,7 @@ function llenarTabla() {
 		responsive: true,
 		"ajax": api_url,
 		"columns": [
+			{'data': 'id'},
 			{'data': 'proveedor.nombre'},
 			{'data': 'notas'},
 			{'data': 'tipo.descripcion'},
@@ -151,7 +152,7 @@ function llenarTabla() {
 		],
 		columnDefs: [
 			{
-				targets: [3],
+				targets: [4],
 				render: function (data, type, row) {
 					return data.tractor ? data.tractor.tractor : data.caja.caja;
 				}
@@ -162,7 +163,7 @@ function llenarTabla() {
 	$(elementos.tabla).on('click', '.ver-detalle', function (e) {
 		elemento_temp = e.currentTarget
 		datos_temp = elementos.datatable.row($(elemento_temp).parent()).data()
-		window.location.href = window.location + '/' + datos_temp.id
+		window.location.href = window.location + '/' + datos_temp.id + '/' + datos_temp.proveedor.id
 	})
 }
 

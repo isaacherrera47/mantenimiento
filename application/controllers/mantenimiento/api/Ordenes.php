@@ -10,7 +10,7 @@ class Ordenes extends REST_Controller
 	{
 		parent::__construct();
 		$this->load->model('mantenimiento/orden_ruta');
-		$this->load->model('mantenimiento/orden_manual');
+		$this->load->model('mantenimiento/orden_manual_externo');
 		$this->load->helper('url');
 	}
 
@@ -20,8 +20,8 @@ class Ordenes extends REST_Controller
 			case 'ruta':
 				$this->get_ruta();
 				break;
-			case 'manual':
-				$this->get_manual();
+			case 'manual_externo':
+				$this->get_manual_externo();
 				break;
 			case 'servicio':
 				break;
@@ -36,8 +36,8 @@ class Ordenes extends REST_Controller
 			case 'ruta':
 				$this->post_ruta();
 				break;
-			case 'manual':
-				$this->post_manual();
+			case 'manual_externo':
+				$this->post_manual_externo();
 				break;
 			case 'servicio':
 				break;
@@ -52,7 +52,8 @@ class Ordenes extends REST_Controller
 			case 'ruta':
 				$this->delete_ruta();
 				break;
-			case 'manual':
+			case 'manual_externo':
+				$this->delete_manual_externo();
 				break;
 			case 'servicio':
 				break;
@@ -119,18 +120,18 @@ class Ordenes extends REST_Controller
 		}
 	}
 
-	private function get_manual()
+	private function get_manual_externo()
 	{
 		if (($id = $this->get('id')) && is_numeric($this->get('id'))) {
-			$response['data'] = $this->orden_manual->obtener($id);
+			$response['data'] = $this->orden_manual_externo->obtener($id);
 		} else {
-			$response['data'] = $this->orden_manual->obtener_todos();
+			$response['data'] = $this->orden_manual_externo->obtener_todos();
 		}
 
 		return $this->response($response, 200);
 	}
 
-	private function post_manual()
+	private function post_manual_externo()
 	{
 		$config = array();
 		$config['upload_path'] = './uploads/';
@@ -153,21 +154,27 @@ class Ordenes extends REST_Controller
 		}
 
 		if ($id = $this->post('id')) {
-			if ($result = $this->orden_manual->actualizar($id, $datos)) {
+			if ($result = $this->orden_manual_externo->actualizar($id, $datos)) {
 				return $this->response($result, 200);
 			}
 		} else {
 			$datos['id_proveedor'] = $this->post('id_proveedor');
 			$datos['servicios'] = $this->post('servicios');
-			if ($result = $this->orden_manual->insertar($datos)) {
+			if ($result = $this->orden_manual_externo->insertar($datos)) {
 				return $this->response($result, 201);
 			}
 		}
 		return $this->response(null, 500);
 	}
 
-	private function delete_manual()
+	private function delete_manual_externo()
 	{
-
+		if (($id = $this->query('id')) && is_numeric($this->query('id'))) {
+			if ($this->orden_manual_externo->eliminar($id)) {
+				return $this->response(array('result' => 'Success'), 200);
+			} else {
+				return $this->response(array('result' => 'Error'), 404);
+			}
+		}
 	}
 }
