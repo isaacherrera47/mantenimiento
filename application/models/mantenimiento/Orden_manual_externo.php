@@ -108,11 +108,36 @@ class Orden_manual_externo extends CI_Model
 
 	private function obtener_servicios($id_mantenimiento)
 	{
-		$this->db->select('a.nombre, a.descripcion, a.tiempo_entrega, a.tipo, a.categoria');
+		$this->db->select('b.id, a.nombre, a.descripcion, a.tiempo_entrega, a.tipo, a.categoria');
 		$this->db->from('mexterno_servicio as b');
 		$this->db->join('servicios as a', 'b.id_servicio = a.id');
 		$this->db->where(array('id_mexterno' => $id_mantenimiento));
 
 		return $this->db->get()->result_array();
+	}
+
+	private function obtener_servicio($id_mantenimiento, $id_servicio)
+	{
+		$this->db->select('b.id, a.nombre, a.descripcion, a.tiempo_entrega, a.tipo, a.categoria');
+		$this->db->from('mexterno_servicio as b');
+		$this->db->join('servicios as a', 'b.id_servicio = a.id');
+		$this->db->where(array('id_mexterno' => $id_mantenimiento, 'id_servicio' => $id_servicio));
+
+		return $this->db->get()->row();
+	}
+
+	public function insertar_servicio($datos)
+	{
+		if (!$this->db->get_where('mexterno_servicio', $datos)->row()) {
+			return $this->db->insert('mexterno_servicio', $datos) ? $this->obtener_servicio($datos['id_mexterno'], $datos['id_servicio']) : false;
+		} else {
+			return $result = 'error';
+		}
+
+	}
+
+	public function eliminar_servicio($id)
+	{
+		return $this->db->delete('mexterno_servicio', array('id' => $id));
 	}
 }

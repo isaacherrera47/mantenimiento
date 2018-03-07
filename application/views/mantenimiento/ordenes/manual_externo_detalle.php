@@ -304,13 +304,111 @@
 		<!-- Main content -->
 		<section class="content">
 
+			<div class="box collapsed-box">
+				<div class="box-header with-border">
+					<h3 class="box-title">Detalles de la orden</h3>
+					<div class="box-tools pull-right">
+						<!-- Collapse Button -->
+						<button type="button" class="btn btn-box-tool" data-widget="collapse">
+							<i class="fa fa-plus"></i>
+						</button>
+					</div>
+					<!-- /.box-tools -->
+				</div>
+				<!-- /.box-header -->
+				<div class="box-body">
+					<div class="col-sm-6">
+						<strong><i class="fa fa-key"></i> ID</strong>
+						<p class="text-muted"><?= $orden->id ?></p>
+						<hr>
+					</div>
+					<div class="col-sm-6">
+						<strong><i class="fa fa-file-text"></i> Notas</strong>
+						<p class="text-muted"><?= $orden->notas ?></p>
+						<hr>
+					</div>
+					<div class="col-sm-6">
+						<strong><i class="fa fa-calendar"></i> Fecha de entrada</strong>
+						<p class="text-muted"><?= $orden->fecha_entrada ?></p>
+						<hr>
+					</div>
+					<div class="col-sm-6">
+						<strong><i class="fa fa-calendar"></i> Fecha de salida</strong>
+						<p class="text-muted"><?= $orden->fecha_salida ?></p>
+						<hr>
+					</div>
+					<div class="col-md-3 col-sm-6">
+						<strong><i class="fa fa-asterisk"></i> Tipo</strong>
+						<p class="text-muted"><?= $orden->tipo['descripcion'] ?></p>
+						<hr>
+					</div>
+					<?php if (isset($orden->tractor)): ?>
+						<div class="col-md-3 col-sm-6">
+							<strong><i class="fa fa-truck"></i> Identificador </strong>
+							<p class="text-muted"><?= $orden->tractor->tractor ?></p>
+							<hr>
+						</div>
+						<div class="col-md-3 col-sm-6">
+							<strong><i class="fa fa-barcode"></i> # VIN </strong>
+							<p class="text-muted"><?= $orden->tractor->numerovin ?></p>
+							<hr>
+						</div>
+						<div class="col-md-3 col-sm-6">
+							<strong><i class="fa fa-barcode"></i> Placas MX </strong>
+							<p class="text-muted"><?= $orden->tractor->placasmx ?></p>
+							<hr>
+						</div>
+					<?php else : ?>
+						<div class="col-md-3 col-sm-6">
+							<strong><i class="fa fa-truck"></i> Identificador </strong>
+							<p class="text-muted"><?= $orden->caja->caja ?></p>
+							<hr>
+						</div>
+						<div class="col-md-3 col-sm-6">
+							<strong># VIN </strong>
+							<p class="text-muted"><?= $orden->caja->numero_vin ?></p>
+							<hr>
+						</div>
+						<div class="col-md-3 col-sm-6">
+							<strong><i class="fa fa-barcode"></i> Placas MX </strong>
+							<p class="text-muted"><?= $orden->caja->placas_mx ?></p>
+							<hr>
+						</div>
+					<?php endif ?>
+					<div class="col-sm-6">
+						<strong><i class="fa fa-male"></i> Proveedor</strong>
+						<p class="text-muted"><?= $orden->proveedor->nombre ?></p>
+						<hr>
+					</div>
+					<div class="col-sm-6">
+						<strong><i class="fa fa-map-marker"></i> Direccion</strong>
+						<p class="text-muted"><?= $orden->proveedor->direccion ?></p>
+						<hr>
+					</div>
+					<div class="col-sm-6">
+						<strong><i class="fa fa-file-image-o"></i> Factura</strong>
+						<? if ($orden->factura): ?>
+							<a href="<?= base_url('uploads/' . $orden->factura) ?>"
+							   class="btn btn-default btn-block" target="_blank">
+								Ver factura cargada
+							</a>
+						<?php else: ?>
+							<p class="text-muted">Aún no se ha cargado ninguna factura</p>
+						<?php endif ?>
+					</div>
+
+				</div>
+				<!-- /.box-body -->
+			</div>
+			<!-- /.box -->
+
 			<div class="row">
 				<div class="col-md-5 col-md-offset-7 col-sm-12">
 					<div style="float: right; margin-bottom: 15px">
 						<div class="btn-group">
 							<button type="button" id="agregar-mecanico" class="btn btn-block btn-success"
 									data-toggle="modal" data-action="Nuevo" data-target="#myModal">
-								<i class="fa fa-fw fa-plus"></i> Agregar proveedor de servicio
+								<i class="fa fa-fw fa-plus"></i> Agregar servicio a orden
 							</button>
 						</div>
 					</div>
@@ -334,9 +432,9 @@
 										<div class="row">
 											<div class="col-md-12">
 												<div class="form-group">
-													<label for="id_proveedor">Servicios disponibles</label>
-													<select class="form-control" name="id_proveedor" id="id_proveedor">
-														<?php foreach($servicios as $servicio): ?>
+													<label for="id_servicio">Servicios disponibles</label>
+													<select class="form-control" name="id_servicio" id="id_servicio">
+														<?php foreach ($servicios as $servicio): ?>
 															<option value="<?= $servicio['servicio']->id ?>">
 																<?= $servicio['servicio']->nombre ?>
 															</option>
@@ -369,7 +467,8 @@
 				</div>
 				<!-- /.box-header -->
 				<div class="box-body">
-					<table data-id="<?= $orden->id ?>" data-id-proveedor="<?= $orden->proveedor->id ?>" id="example1" class="table table-bordered table-striped">
+					<table data-id="<?= $orden->id ?>" data-id-proveedor="<?= $orden->proveedor->id ?>" id="example1"
+						   class="table table-bordered table-striped">
 						<thead>
 						<tr>
 							<th>Nombre</th>
