@@ -48,5 +48,17 @@ class Orden_controller extends CI_Controller
 		$this->load->view('templates/footer', $data);
 	}
 
+	public function manual_interno()
+	{
+		$data['cajas'] = $this->db->get('cajas')->result_array();
+		$data['tractores'] = $this->db->get('tractores')->result_array();
+		$data['mecanicos'] = $this->db->get('mecanicos')->result_array();
+		$data['servicios'] = $this->db->get_where('servicios', array('tipo' => 'Interno'))->result_array();
+		$data['script'] = 'mantenimiento/ordenes/manual_interno';
+		$this->load->view('templates/header');
+		$this->load->view('mantenimiento/ordenes/manual_interno', $data);
+		$this->load->view('templates/footer', $data);
+	}
+
 
 }

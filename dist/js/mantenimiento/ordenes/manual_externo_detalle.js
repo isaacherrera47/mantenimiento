@@ -1,6 +1,6 @@
 var url_root = window.location.origin + '/fletes/index.php' // Base url
 var api_url = url_root + '/api/ordenes/?tipo_orden=manual_externo' // URL API servicioes
-var api_servicios = url_root + '/api/ordenes/?tipo_orden=servicio' // URL API servicioes
+var api_servicios = url_root + '/api/ordenes/?tipo_orden=servicio_ex' // URL API servicioes
 var datos_temp = null // Referencia a datos temporales en edicion
 var elemento_temp = null // Referencia temporal de boton de edicion
 var ls = 'es' //Lenguaje del sistema

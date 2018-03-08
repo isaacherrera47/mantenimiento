@@ -63,7 +63,9 @@ $route['mantenimiento/proveedores'] = 'mantenimiento/proveedor_controller/index'
 $route['mantenimiento/proveedores/(:num)'] = 'mantenimiento/proveedor_controller/proveedor_refaccion/$1';
 $route['mantenimiento/ordenes/en-ruta'] = 'mantenimiento/orden_controller/en_ruta';
 $route['mantenimiento/ordenes/manual/externo'] = 'mantenimiento/orden_controller/manual_externo';
+$route['mantenimiento/ordenes/manual/interno'] = 'mantenimiento/orden_controller/manual_interno';
 $route['mantenimiento/ordenes/manual/externo/(:num)/(:num)'] = 'mantenimiento/orden_controller/manual_externo_detalle/$1/$2';
+$route['mantenimiento/ordenes/manual/interno/(:num)/(:num)'] = 'mantenimiento/orden_controller/manual_interno_detalle/$1/$2';
 
 // API
 $route['api/mecanicos'] = 'mantenimiento/api/mecanicos';

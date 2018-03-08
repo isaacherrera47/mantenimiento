@@ -11,6 +11,7 @@ class Ordenes extends REST_Controller
 		parent::__construct();
 		$this->load->model('mantenimiento/orden_ruta');
 		$this->load->model('mantenimiento/orden_manual_externo');
+		$this->load->model('mantenimiento/orden_manual_interno');
 		$this->load->helper('url');
 	}
 
@@ -22,6 +23,9 @@ class Ordenes extends REST_Controller
 				break;
 			case 'manual_externo':
 				$this->get_manual_externo();
+				break;
+			case 'manual_interno':
+				$this->get_manual_interno();
 				break;
 			default:
 				return $this->response(null, 400);
@@ -37,8 +41,13 @@ class Ordenes extends REST_Controller
 			case 'manual_externo':
 				$this->post_manual_externo();
 				break;
-			case 'servicio':
-				$this->post_servicio();
+			case 'manual_interno':
+				$this->post_manual_interno();
+				break;
+			case 'servicio_ex':
+				$this->post_servicio_ex();
+				break;
+			case 'servicio_in':
 				break;
 			default:
 				return $this->response(null, 400);
@@ -54,8 +63,13 @@ class Ordenes extends REST_Controller
 			case 'manual_externo':
 				$this->delete_manual_externo();
 				break;
-			case 'servicio':
-				$this->delete_servicio();
+			case 'manual_interno':
+				$this->delete_manual_interno();
+				break;
+			case 'servicio_ex':
+				$this->delete_servicio_ex();
+				break;
+			case 'servicio_in':
 				break;
 			default:
 				return $this->response(null, 400);
@@ -180,7 +194,67 @@ class Ordenes extends REST_Controller
 		return $this->response(null, 400);
 	}
 
-	private function post_servicio()
+	private function get_manual_interno()
+	{
+		if (($id = $this->get('id')) && is_numeric($this->get('id'))) {
+			$response['data'] = $this->orden_manual_interno->obtener($id);
+		} else {
+			$response['data'] = $this->orden_manual_interno->obtener_todos();
+		}
+
+		return $this->response($response, 200);
+	}
+
+	private function post_manual_interno()
+	{
+		$config = array();
+		$config['upload_path'] = './uploads/';
+		$config['allowed_types'] = 'gif|jpg|png';
+		$config['overwrite'] = true;
+		$this->load->library('upload');
+		$this->upload->initialize($config);
+
+		$datos = array(
+			'tipo' => $this->post('tipo'),
+			'notas' => $this->post('notas'),
+			'fecha_entrada' => $this->post('fecha_entrada'),
+			'fecha_salida' => $this->post('fecha_salida'),
+			'id_mecanico' => $this->post('id_mecanico')
+		);
+
+		$datos['id_objeto'] = $this->post('tipo') == 2 ? $this->post('caja') : $this->post('tractor');
+
+		/*if ($this->upload->do_upload('factura')) {
+			$datos['factura'] = $this->upload->data('file_name'); //TODO: Implementar operaciones de borrado
+		}*/ // Deshabilitado temporalmente
+
+		if ($id = $this->post('id')) {
+			if ($result = $this->orden_manual_interno->actualizar($id, $datos)) {
+				return $this->response($result, 200);
+			}
+		} else {
+			$datos['servicios'] = $this->post('servicios');
+			if ($result = $this->orden_manual_interno->insertar($datos)) {
+				return $this->response($result, 201);
+			}
+		}
+		return $this->response(null, 500);
+	}
+
+	private function delete_manual_interno()
+	{
+		if (($id = $this->query('id')) && is_numeric($this->query('id'))) {
+			if ($this->orden_manual_interno->eliminar($id)) {
+				return $this->response(array('result' => 'Success'), 200);
+			} else {
+				return $this->response(array('result' => 'Error'), 404);
+			}
+		}
+
+		return $this->response(null, 400);
+	}
+
+	private function post_servicio_ex()
 	{
 		if (!$this->post('id_mexterno') || !$this->post('id_servicio')) {
 			return $this->response(null, 400);
@@ -198,7 +272,7 @@ class Ordenes extends REST_Controller
 		}
 	}
 
-	private function delete_servicio()
+	private function delete_servicio_ex()
 	{
 		if (($id = $this->query('id')) && is_numeric($this->query('id'))) {
 			if ($this->orden_manual_externo->eliminar_servicio($id)) {
