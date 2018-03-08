@@ -48,6 +48,7 @@ class Ordenes extends REST_Controller
 				$this->post_servicio_ex();
 				break;
 			case 'servicio_in':
+				$this->post_servicio_in();
 				break;
 			default:
 				return $this->response(null, 400);
@@ -70,6 +71,7 @@ class Ordenes extends REST_Controller
 				$this->delete_servicio_ex();
 				break;
 			case 'servicio_in':
+				$this->delete_servicio_in();
 				break;
 			default:
 				return $this->response(null, 400);
@@ -276,6 +278,35 @@ class Ordenes extends REST_Controller
 	{
 		if (($id = $this->query('id')) && is_numeric($this->query('id'))) {
 			if ($this->orden_manual_externo->eliminar_servicio($id)) {
+				return $this->response(array('result' => 'Success'), 200);
+			} else {
+				return $this->response(array('result' => 'Error'), 404);
+			}
+		}
+	}
+
+	private function post_servicio_in()
+	{
+		if (!$this->post('id_minterno') || !$this->post('id_servicio')) {
+			return $this->response(null, 400);
+		}
+
+		$datos = array(
+			'id_minterno' => $this->post('id_minterno'),
+			'id_servicio' => $this->post('id_servicio')
+		);
+
+		if ($result = $this->orden_manual_interno->insertar_servicio($datos)) {
+			return $result !== 'error' ? $this->response($result, 201) : $this->response(null, 409);
+		} else {
+			return $this->response(null, 500);
+		}
+	}
+
+	private function delete_servicio_in()
+	{
+		if (($id = $this->query('id')) && is_numeric($this->query('id'))) {
+			if ($this->orden_manual_interno->eliminar_servicio($id)) {
 				return $this->response(array('result' => 'Success'), 200);
 			} else {
 				return $this->response(array('result' => 'Error'), 404);
