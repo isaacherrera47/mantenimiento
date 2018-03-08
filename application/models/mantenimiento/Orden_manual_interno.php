@@ -110,7 +110,7 @@ class Orden_manual_interno extends CI_Model
 
 	private function obtener_servicios($id_mantenimiento)
 	{
-		$this->db->select('b.id, a.nombre, a.descripcion, a.tiempo_entrega, a.tipo, a.categoria');
+		$this->db->select('b.id, a.id as id_servicio, a.nombre, a.descripcion, a.tiempo_entrega, a.tipo, a.categoria');
 		$this->db->from('minterno_servicio as b');
 		$this->db->join('servicios as a', 'b.id_servicio = a.id');
 		$this->db->where(array('id_minterno' => $id_mantenimiento));
@@ -120,7 +120,7 @@ class Orden_manual_interno extends CI_Model
 
 	private function obtener_servicio($id_mantenimiento, $id_servicio)
 	{
-		$this->db->select('b.id, a.nombre, a.descripcion, a.tiempo_entrega, a.tipo, a.categoria');
+		$this->db->select('b.id, a.id as id_servicio, a.nombre, a.descripcion, a.tiempo_entrega, a.tipo, a.categoria');
 		$this->db->from('minterno_servicio as b');
 		$this->db->join('servicios as a', 'b.id_servicio = a.id');
 		$this->db->where(array('id_minterno' => $id_mantenimiento, 'id_servicio' => $id_servicio));

@@ -381,14 +381,14 @@
 						<hr>
 					</div>
 					<div class="col-sm-6">
-						<strong><i class="fa fa-file-image-o"></i> Factura</strong>
+						<strong><i class="fa fa-file-image-o"></i> Orden de compra</strong>
 						<? if ($orden->mecanico->horas): ?>
 							<a href="<?= base_url('uploads/' . $orden->mecanico->horas) ?>"
 							   class="btn btn-default btn-block" target="_blank">
-								Ver factura cargada
+								Ver orden de compra
 							</a>
 						<?php else: ?>
-							<p class="text-muted">Aún no se ha cargado ninguna factura</p>
+							<p class="text-muted">Aún no se generado ninguna orden de compra</p>
 						<?php endif ?>
 					</div>
 
@@ -506,6 +506,9 @@
 <script id="botones-accion" type="text/x-custom-template">
 	<button type="button" class="btn btn-danger btn-sm eliminar-servicio">
 		<i class="fa fa-trash"></i>
+	</button>
+	<button type="button" class="btn btn-info btn-sm ver-refacciones">
+		<i class="fa fa-wrench"></i>
 	</button>
 </script>
 <!-- ./wrapper -->

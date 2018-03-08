@@ -61,6 +61,12 @@ $(document).ready(function () {
 		}, function (e) {
 		})
 	})
+
+	$(elementos.tabla).on('click', '.ver-refacciones', function (e) {
+		elemento_temp = e.currentTarget
+		datos_temp = elementos.datatable.row($(elemento_temp).parent()).data()
+		window.location.href = url_root + '/mantenimiento/servicios/' + datos_temp.id_servicio
+	})
 })
 
 function llenarTabla() {
