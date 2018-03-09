@@ -344,7 +344,7 @@
 													</select>
 												</div>
 											</div>
-											<div class="col-md-12" id="hidden_edit">
+											<div class="col-md-12 hidden_edit">
 												<div class="form-group">
 													<label for="servicios">Servicios</label>
 													<select class="form-control" name="servicios[]" multiple id="servicios">
@@ -356,25 +356,23 @@
 													</select>
 												</div>
 											</div>
+											<div class="col-md-12 hidden_edit">
+												<div class="form-group">
+													<label for="refacciones">Refacciones</label>
+													<select class="form-control" name="refacciones[]" multiple id="refacciones">
+														<? foreach ($refacciones as $refaccion): ?>
+															<option value="<?= $refaccion['id'] ?>">
+																<?= $refaccion['nombre'] ?>
+															</option>
+														<? endforeach ?>
+													</select>
+												</div>
+											</div>
 											<div class="col-md-12">
 												<div class="form-group">
 													<label for="notas">Notas</label>
 													<textarea class="form-control" id="notas"
 															  placeholder="Notas" name="notas"></textarea>
-												</div>
-											</div>
-											<div class="col-md-6">
-												<div class="form-group">
-													<label for="fecha_entrada">Fecha de entrada</label>
-													<input type="text" class="form-control datepicker" id="fecha_entrada"
-														   placeholder="Fecha de Entrada" name="fecha_entrada">
-												</div>
-											</div>
-											<div class="col-md-6">
-												<div class="form-group">
-													<label for="fecha_salida">Fecha de salida</label>
-													<input type="text" class="form-control datepicker" id="fecha_salida"
-														   placeholder="Fecha de Salida" name="fecha_salida">
 												</div>
 											</div>
 											<div class="col-md-6">

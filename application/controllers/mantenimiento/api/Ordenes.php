@@ -209,18 +209,16 @@ class Ordenes extends REST_Controller
 
 	private function post_manual_interno()
 	{
-		$config = array();
+		/*$config = array();
 		$config['upload_path'] = './uploads/';
 		$config['allowed_types'] = 'gif|jpg|png';
 		$config['overwrite'] = true;
 		$this->load->library('upload');
-		$this->upload->initialize($config);
+		$this->upload->initialize($config);*/ //Deshabilitado temporalmente
 
 		$datos = array(
 			'tipo' => $this->post('tipo'),
 			'notas' => $this->post('notas'),
-			'fecha_entrada' => $this->post('fecha_entrada'),
-			'fecha_salida' => $this->post('fecha_salida'),
 			'id_mecanico' => $this->post('id_mecanico')
 		);
 
@@ -236,6 +234,7 @@ class Ordenes extends REST_Controller
 			}
 		} else {
 			$datos['servicios'] = $this->post('servicios');
+			$datos['refacciones'] = $this->post('refacciones');
 			if ($result = $this->orden_manual_interno->insertar($datos)) {
 				return $this->response($result, 201);
 			}

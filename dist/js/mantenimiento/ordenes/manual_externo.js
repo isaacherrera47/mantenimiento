@@ -120,6 +120,11 @@ $(document).ready(function () {
 	$(elementos.tipo_objeto).on('change', function (e) {
 		alternarCombo()
 	})
+
+
+	$('.table tbody').on( 'click', 'tr', function () {
+		$(this).toggleClass('selected');
+	} );
 })
 
 function alternarCombo() {

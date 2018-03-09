@@ -9,6 +9,7 @@ var elementos = {
 	modal: $('#myModal'),
 	form_modal: $('#form-servicio-proveedor'),
 	tabla: $('#example1'),
+	tabla_refaccion: $('#example2'),
 	template_botones: $('#botones-accion').html(),
 	id_minterno: 0,
 }
@@ -77,6 +78,24 @@ function llenarTabla() {
 		"ajax": {
 			"url": api_url + '&id=' + elementos.id_minterno,
 			"dataSrc": "data.servicios"
+		},
+		"columns": [
+			{'data': 'nombre'},
+			{'data': 'descripcion'},
+			{'data': 'tiempo_entrega'},
+			{
+				"data": null,
+				"defaultContent": elementos.template_botones
+			}
+		]
+	});
+
+	elementos.datatable_refaccion = elementos.tabla_refaccion.DataTable({
+		"autoWidth": false,
+		responsive: true,
+		"ajax": {
+			"url": api_url + '&id=' + elementos.id_minterno,
+			"dataSrc": "data.refacciones"
 		},
 		"columns": [
 			{'data': 'nombre'},

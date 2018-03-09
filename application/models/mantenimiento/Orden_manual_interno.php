@@ -33,11 +33,18 @@ class Orden_manual_interno extends CI_Model
 	public function insertar($datos)
 	{
 		$servicios = $datos['servicios'];
+		$refacciones = $datos['refacciones'];
 		unset($datos['servicios']);
+		unset($datos['refacciones']);
 		$result = $this->db->insert('ordenes_minterno', $datos) ? $this->obtener($this->db->insert_id()) : false;
 		if ($result && $servicios) {
 			foreach ($servicios as $servicio) {
 				$this->db->insert('minterno_servicio', array('id_minterno' => $result->id, 'id_servicio' => $servicio));
+			}
+		}
+		if ($result && $refacciones) {
+			foreach ($refacciones as $refaccion) {
+				$this->db->insert('minterno_refaccion', array('id_minterno' => $result->id, 'id_refaccion' => $refaccion));
 			}
 		}
 		return $result;
@@ -92,6 +99,7 @@ class Orden_manual_interno extends CI_Model
 				unset($obj->id_mecanico);
 			}
 			$obj->servicios = $this->obtener_servicios($obj->id);
+			$obj->refacciones = $this->obtener_refacciones($obj->id);
 			$obj->tipo = $this->tipos[$obj->tipo];
 		}
 		return $obj;
@@ -116,6 +124,26 @@ class Orden_manual_interno extends CI_Model
 		$this->db->where(array('id_minterno' => $id_mantenimiento));
 
 		return $this->db->get()->result_array();
+	}
+
+	private function obtener_refacciones($id_mantenimiento)
+	{
+		$this->db->select('b.id, a.id as id_refaccion, a.nombre, a.descripcion, a.tiempo_entrega, b.piezas');
+		$this->db->from('minterno_refaccion as b');
+		$this->db->join('refacciones as a', 'b.id_refaccion = a.id');
+		$this->db->where(array('id_minterno' => $id_mantenimiento));
+
+		return $this->db->get()->result_array();
+	}
+
+	private function obtener_refaccion($id_mantenimiento, $id_refaccion)
+	{
+		$this->db->select('b.id, a.id as id_refaccion, a.nombre, a.descripcion, a.tiempo_entrega, b.piezas');
+		$this->db->from('minterno_refaccion as b');
+		$this->db->join('refacciones as a', 'b.id_refaccion = a.id');
+		$this->db->where(array('id_minterno' => $id_mantenimiento, 'id_refaccion' => $id_refaccion));
+
+		return $this->db->get()->row();
 	}
 
 	private function obtener_servicio($id_mantenimiento, $id_servicio)

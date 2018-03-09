@@ -381,7 +381,7 @@
 						<hr>
 					</div>
 					<div class="col-sm-6">
-						<strong><i class="fa fa-file-image-o"></i> Orden de compra</strong>
+						<strong><i class="fa fa-file-image-o"></i> Estado de la orden </strong>
 						<? if ($orden->mecanico->horas): ?>
 							<a href="<?= base_url('uploads/' . $orden->mecanico->horas) ?>"
 							   class="btn btn-default btn-block" target="_blank">
@@ -454,6 +454,50 @@
 			</div>
 			<!-- /.example-modal -->
 
+			<div class="example-modal">
+				<div class="modal fade bs-example-modal-lg" id="myModal2" tabindex="-1" role="dialog"
+					 aria-labelledby="myModalLabel">
+					<div class="modal-dialog">
+						<div class="modal-content">
+							<div class="modal-header">
+								<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+									<span aria-hidden="true">&times;</span>
+								</button>
+								<h4 class="modal-title"></h4>
+							</div>
+							<form id="form-servicio-proveedor">
+								<div class="modal-body">
+									<div class="box-body">
+										<div class="row">
+											<div class="col-md-12">
+												<div class="form-group">
+													<label for="id_servicio">Servicios disponibles</label>
+													<select class="form-control" name="id_servicio" id="id_servicio">
+														<?php foreach ($servicios as $servicio): ?>
+															<option value="<?= $servicio['id'] ?>">
+																<?= $servicio['nombre'] ?>
+															</option>
+														<? endforeach ?>
+													</select>
+												</div>
+											</div>
+										</div>
+									</div>
+								</div>
+								<div class="modal-footer">
+									<button type="button" class="btn btn-danger" data-dismiss="modal">Cancelar</button>
+									<button type="submit" class="btn btn-success">Agregar</button>
+								</div>
+							</form>
+						</div>
+						<!-- /.modal-content -->
+					</div>
+					<!-- /.modal-dialog -->
+				</div>
+				<!-- /.modal -->
+			</div>
+			<!-- /.example-modal -->
+
 			<div class="box">
 				<div class="box-header">
 					<h3 class="box-title">
@@ -463,6 +507,51 @@
 				<!-- /.box-header -->
 				<div class="box-body">
 					<table data-id="<?= $orden->id ?>" id="example1"
+						   class="table table-bordered table-striped">
+						<thead>
+						<tr>
+							<th>Nombre</th>
+							<th>Descripcion</th>
+							<th>Tiempo de entrega</th>
+							<th>Acciones</th>
+						</tr>
+						</thead>
+						<tbody>
+						</tbody>
+						<tfoot>
+						<tr>
+							<th>Nombre</th>
+							<th>Descripcion</th>
+							<th>Tiempo de entrega</th>
+							<th>Acciones</th>
+						</tr>
+						</tfoot>
+					</table>
+				</div>
+				<!-- /.box-body -->
+			</div>
+			<!-- /.box -->
+			<div class="row">
+				<div class="col-md-5 col-md-offset-7 col-sm-12">
+					<div style="float: right; margin-bottom: 15px">
+						<div class="btn-group">
+							<button type="button" id="agregar-refaccion" class="btn btn-block btn-success"
+									data-toggle="modal" data-action="Nuevo" data-target="#myModal2">
+								<i class="fa fa-fw fa-plus"></i> Agregar refaccion a orden
+							</button>
+						</div>
+					</div>
+				</div>
+			</div>
+			<div class="box">
+				<div class="box-header">
+					<h3 class="box-title">
+						Lista de refacciones asignadas para la orden.
+					</h3>
+				</div>
+				<!-- /.box-header -->
+				<div class="box-body">
+					<table id="example2"
 						   class="table table-bordered table-striped">
 						<thead>
 						<tr>

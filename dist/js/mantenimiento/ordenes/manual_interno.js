@@ -12,7 +12,6 @@ var elementos = {
 	tabla: $('#example1'),
 	servicios: $('#servicios'),
 	template_botones: $('#botones-accion').html(),
-	datepicker: $('.datepicker'),
 	cajas: $('#cb-caja'),
 	tractores: $('#cb-tractor'),
 	tipo_objeto: $('#tipo'),
@@ -22,9 +21,6 @@ var elementos = {
 
 $(document).ready(function () {
 	llenarTabla()
-	elementos.datepicker.datepicker({
-		format: 'yyyy-mm-dd',
-	})
 	$(elementos.modal).on('show.bs.modal', function (e) {
 		if (e.namespace == 'bs.modal') {
 			accion = $(e.relatedTarget).data('action')
