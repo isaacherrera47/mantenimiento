@@ -19,6 +19,7 @@ lenguaje['es']['orden_ruta'] = 'Orden de Servicio en Ruta'
 lenguaje['es']['orden_manual_ex'] = 'Orden de Mantenimiento Externo'
 lenguaje['es']['orden_manual_in'] = 'Orden de Mantenimiento Interno'
 lenguaje['es']['nuevo_servicio_oexterna'] = 'Agregar Servicio a Orden'
+lenguaje['es']['refaccion_ointerna'] = 'Refacción a orden'
 // Confirmaciones generales
 lenguaje['es']['borrar_titulo'] = 'Borrar Elemento'
 lenguaje['es']['borrar_mensaje'] = '¿Estás seguro?'

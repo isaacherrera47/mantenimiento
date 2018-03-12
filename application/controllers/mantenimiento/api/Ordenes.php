@@ -50,6 +50,9 @@ class Ordenes extends REST_Controller
 			case 'servicio_in':
 				$this->post_servicio_in();
 				break;
+			case 'refaccion':
+				$this->post_refaccion();
+				break;
 			default:
 				return $this->response(null, 400);
 		}
@@ -72,6 +75,20 @@ class Ordenes extends REST_Controller
 				break;
 			case 'servicio_in':
 				$this->delete_servicio_in();
+				break;
+			case 'refaccion':
+				$this->delete_refaccion();
+				break;
+			default:
+				return $this->response(null, 400);
+		}
+	}
+
+	public function index_put()
+	{
+		switch ($this->query('tipo_orden')) {
+			case 'refaccion':
+				$this->put_refaccion();
 				break;
 			default:
 				return $this->response(null, 400);
@@ -306,6 +323,47 @@ class Ordenes extends REST_Controller
 	{
 		if (($id = $this->query('id')) && is_numeric($this->query('id'))) {
 			if ($this->orden_manual_interno->eliminar_servicio($id)) {
+				return $this->response(array('result' => 'Success'), 200);
+			} else {
+				return $this->response(array('result' => 'Error'), 404);
+			}
+		}
+	}
+
+	private function post_refaccion()
+	{
+		if (!$this->post('id_minterno') || !$this->post('id_refaccion')) {
+			return $this->response(null, 400);
+		}
+
+		$datos = array(
+			'id_minterno' => $this->post('id_minterno'),
+			'id_refaccion' => $this->post('id_refaccion'),
+			'piezas' => $this->post('piezas'),
+		);
+
+		if ($result = $this->orden_manual_interno->insertar_refaccion($datos)) {
+			return $result !== 'error' ? $this->response($result, 201) : $this->response(null, 409);
+		} else {
+			return $this->response(null, 500);
+		}
+	}
+
+	private function put_refaccion()
+	{
+		if (($id = $this->put('id')) && is_numeric($this->put('id'))) {
+			if ($result = $this->orden_manual_interno->actualizar_refaccion($id, $this->put('piezas'))) {
+				return $this->response($result, 200);
+			} else {
+				return $this->response(array('result' => 'Error'), 409);
+			}
+		}
+	}
+
+	private function delete_refaccion()
+	{
+		if (($id = $this->query('id')) && is_numeric($this->query('id'))) {
+			if ($this->orden_manual_interno->eliminar_refaccion($id)) {
 				return $this->response(array('result' => 'Success'), 200);
 			} else {
 				return $this->response(array('result' => 'Error'), 404);

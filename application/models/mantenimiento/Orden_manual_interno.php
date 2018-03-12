@@ -136,12 +136,12 @@ class Orden_manual_interno extends CI_Model
 		return $this->db->get()->result_array();
 	}
 
-	private function obtener_refaccion($id_mantenimiento, $id_refaccion)
+	private function obtener_refaccion($id)
 	{
 		$this->db->select('b.id, a.id as id_refaccion, a.nombre, a.descripcion, a.tiempo_entrega, b.piezas');
 		$this->db->from('minterno_refaccion as b');
 		$this->db->join('refacciones as a', 'b.id_refaccion = a.id');
-		$this->db->where(array('id_minterno' => $id_mantenimiento, 'id_refaccion' => $id_refaccion));
+		$this->db->where(array('b.id' => $id));
 
 		return $this->db->get()->row();
 	}
@@ -166,8 +166,33 @@ class Orden_manual_interno extends CI_Model
 
 	}
 
+	public function insertar_refaccion($datos)
+	{
+		$where_clauses = array(
+			'id_minterno' => $datos['id_minterno'],
+			'id_refaccion' => $datos['id_refaccion']
+		);
+
+		if (!$this->db->get_where('minterno_refaccion', $where_clauses)->row()) {
+			return $this->db->insert('minterno_refaccion', $datos) ? $this->obtener_refaccion($this->db->insert_id()) : false;
+		} else {
+			return $result = 'error';
+		}
+	}
+
+	public function actualizar_refaccion($id, $piezas) //Solo modificar el numero de piezas
+	{
+		$this->db->where(array('id' => $id));
+		return $this->db->update('minterno_refaccion', array('piezas' => $piezas)) ? $this->obtener_refaccion($id) : false;
+	}
+
 	public function eliminar_servicio($id)
 	{
 		return $this->db->delete('minterno_servicio', array('id' => $id));
+	}
+
+	public function eliminar_refaccion($id)
+	{
+		return $this->db->delete('minterno_refaccion', array('id' => $id));
 	}
 }

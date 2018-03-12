@@ -378,11 +378,12 @@
 					<div class="col-sm-6">
 						<strong><i class="fa fa-male"></i> Mecanico a cargo</strong>
 						<p class="text-muted"><?= $orden->mecanico->nombre . ' ' . $orden->mecanico->apellido ?></p>
-						<hr>
 					</div>
 					<div class="col-sm-6">
 						<strong><i class="fa fa-file-image-o"></i> Estado de la orden </strong>
-						<? if ($orden->mecanico->horas): ?>
+						<? if ($orden->estado === '0'): ?>
+							<p class="text-muted">Orden de compra rechazada</p>
+						<?php elseif($orden->estado === '1'): ?>
 							<a href="<?= base_url('uploads/' . $orden->mecanico->horas) ?>"
 							   class="btn btn-default btn-block" target="_blank">
 								Ver orden de compra
@@ -421,7 +422,7 @@
 								</button>
 								<h4 class="modal-title"></h4>
 							</div>
-							<form id="form-servicio-proveedor">
+							<form id="form-orden-servicio">
 								<div class="modal-body">
 									<div class="box-body">
 										<div class="row">
@@ -465,20 +466,26 @@
 								</button>
 								<h4 class="modal-title"></h4>
 							</div>
-							<form id="form-servicio-proveedor">
+							<form id="form-orden-refaccion">
 								<div class="modal-body">
 									<div class="box-body">
 										<div class="row">
 											<div class="col-md-12">
 												<div class="form-group">
-													<label for="id_servicio">Servicios disponibles</label>
-													<select class="form-control" name="id_servicio" id="id_servicio">
-														<?php foreach ($servicios as $servicio): ?>
-															<option value="<?= $servicio['id'] ?>">
-																<?= $servicio['nombre'] ?>
+													<label for="id_refaccion">Refacciones disponibles</label>
+													<select class="form-control" name="id_refaccion" id="id_refaccion">
+														<?php foreach ($refacciones as $refaccion): ?>
+															<option value="<?= $refaccion['id'] ?>">
+																<?= $refaccion['nombre'] ?>
 															</option>
 														<? endforeach ?>
 													</select>
+												</div>
+											</div>
+											<div class="col-md-12">
+												<div class="form-group">
+													<label for="piezas">Piezas</label>
+													<input id="piezas" name="piezas" class="form-control" type="number">
 												</div>
 											</div>
 										</div>
@@ -558,6 +565,7 @@
 							<th>Nombre</th>
 							<th>Descripcion</th>
 							<th>Tiempo de entrega</th>
+							<th>Piezas</th>
 							<th>Acciones</th>
 						</tr>
 						</thead>
@@ -568,6 +576,7 @@
 							<th>Nombre</th>
 							<th>Descripcion</th>
 							<th>Tiempo de entrega</th>
+							<th>Piezas</th>
 							<th>Acciones</th>
 						</tr>
 						</tfoot>
@@ -598,6 +607,16 @@
 	</button>
 	<button type="button" class="btn btn-info btn-sm ver-refacciones">
 		<i class="fa fa-wrench"></i>
+	</button>
+</script>
+
+<script id="botones-accion-refaccion" type="text/x-custom-template">
+	<button type="button" class="btn bg-light-blue btn-sm editar-refaccion" data-toggle="modal"
+			data-target="#myModal2" data-action="Editar">
+		<i class="fa fa-pencil"></i>
+	</button>
+	<button type="button" class="btn btn-danger btn-sm eliminar-refaccion">
+		<i class="fa fa-trash"></i>
 	</button>
 </script>
 <!-- ./wrapper -->
