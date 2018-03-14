@@ -87,7 +87,6 @@ function llenarTabla() {
         "columns": [
             {'data': 'refaccion.nombre'},
             {'data': 'refaccion.descripcion'},
-            {'data': 'refaccion.tiempo_entrega'},
             {'data': 'piezas'},
             {
                 "data": null,

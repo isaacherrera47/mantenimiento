@@ -381,7 +381,6 @@
                         <tr>
                             <th>Nombre</th>
                             <th>Descripcion</th>
-                            <th>Tiempo</th>
                             <th>Piezas</th>
                             <th>Acciones</th>
                         </tr>
@@ -392,7 +391,6 @@
                         <tr>
                             <th>Nombre</th>
                             <th>Descripcion</th>
-                            <th>Tiempo</th>
                             <th>Piezas</th>
                             <th>Acciones</th>
                         </tr>

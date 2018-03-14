@@ -168,7 +168,6 @@ function llenarTabla() {
 		"columns": [
 			{'data': 'nombre'},
 			{'data': 'descripcion'},
-			{'data': 'tiempo_entrega'},
 			{'data': 'piezas'},
 			{
 				"data": null,

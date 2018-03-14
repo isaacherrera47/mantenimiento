@@ -21,6 +21,7 @@ var elementos = {
 
 $(document).ready(function () {
 	llenarTabla()
+	$('#refacciones').select2()
 	$(elementos.modal).on('show.bs.modal', function (e) {
 		if (e.namespace == 'bs.modal') {
 			accion = $(e.relatedTarget).data('action')

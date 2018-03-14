@@ -82,7 +82,6 @@ function llenarTabla() {
         "columns": [
             {'data': 'nombre'},
             {'data': 'descripcion'},
-            {'data': 'tiempo_entrega'},
             {
                 "data": null,
                 "defaultContent": elementos.template_botones

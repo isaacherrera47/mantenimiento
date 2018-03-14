@@ -5,13 +5,10 @@ class Orden_manual_interno extends CI_Model
 	const TRACTOR = 1;
 	const CAJA = 2;
 
-	private $where_clauses;
-
 	public function __construct()
 	{
 		parent::__construct();
 		$this->load->database();
-		$this->where_clauses = array('id', 'tipo');
 		$this->tipos = array(
 			self::TRACTOR => array('id' => self::TRACTOR, 'descripcion' => 'Tractor'),
 			self::CAJA => array('id' => self::CAJA, 'descripcion' => 'Caja')
@@ -105,17 +102,6 @@ class Orden_manual_interno extends CI_Model
 		return $obj;
 	}
 
-	public function obtener_parametros_where($get_params)
-	{
-		$clean_array = array();
-		foreach ($this->where_clauses as $clause) {
-			if (isset($get_params[$clause]) && !empty($get_params[$clause])) {
-				$clean_array[$clause] = $get_params[$clause];
-			}
-		}
-		return $clean_array;
-	}
-
 	private function obtener_servicios($id_mantenimiento)
 	{
 		$this->db->select('b.id, a.id as id_servicio, a.nombre, a.descripcion, a.tiempo_entrega, a.tipo, a.categoria');
@@ -128,7 +114,7 @@ class Orden_manual_interno extends CI_Model
 
 	private function obtener_refacciones($id_mantenimiento)
 	{
-		$this->db->select('b.id, a.id as id_refaccion, a.nombre, a.descripcion, a.tiempo_entrega, b.piezas');
+		$this->db->select('b.id, a.id as id_refaccion, a.nombre, a.descripcion, b.piezas');
 		$this->db->from('minterno_refaccion as b');
 		$this->db->join('refacciones as a', 'b.id_refaccion = a.id');
 		$this->db->where(array('id_minterno' => $id_mantenimiento));
@@ -138,7 +124,7 @@ class Orden_manual_interno extends CI_Model
 
 	private function obtener_refaccion($id)
 	{
-		$this->db->select('b.id, a.id as id_refaccion, a.nombre, a.descripcion, a.tiempo_entrega, b.piezas');
+		$this->db->select('b.id, a.id as id_refaccion, a.nombre, a.descripcion, b.piezas');
 		$this->db->from('minterno_refaccion as b');
 		$this->db->join('refacciones as a', 'b.id_refaccion = a.id');
 		$this->db->where(array('b.id' => $id));
@@ -163,7 +149,6 @@ class Orden_manual_interno extends CI_Model
 		} else {
 			return $result = 'error';
 		}
-
 	}
 
 	public function insertar_refaccion($datos)

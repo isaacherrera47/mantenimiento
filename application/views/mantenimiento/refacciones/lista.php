@@ -332,25 +332,18 @@
                                 <div class="modal-body">
                                     <div class="box-body">
                                         <div class="row">
-                                            <div class="col-md-6">
+                                            <div class="col-md-12">
                                                 <div class="form-group">
                                                     <label for="nombre">Nombre</label>
                                                     <input type="text" class="form-control" id="nombre"
                                                            placeholder="Nombre" name="nombre">
                                                 </div>
                                             </div>
-                                            <div class="col-md-6">
-                                                <div class="form-group">
-                                                    <label for="descripcion">Descripcion</label>
-                                                    <input type="text" class="form-control" id="descripcion"
-                                                           placeholder="Descripcion" name="descripcion">
-                                                </div>
-                                            </div>
                                             <div class="col-md-12">
                                                 <div class="form-group">
-                                                    <label for="tiempo_entrega">Tiempo de entrega</label>
-                                                    <input type="text" class="form-control" id="tiempo_entrega"
-                                                           placeholder="Tiempo de entrega" name="tiempo_entrega">
+                                                    <label for="descripcion">Descripcion</label>
+                                                    <textarea class="form-control" id="descripcion"
+															  placeholder="Descripcion" name="descripcion"> </textarea>
                                                 </div>
                                             </div>
                                         </div>
@@ -381,7 +374,6 @@
                         <tr>
                             <th>Nombre</th>
                             <th>Descripcion</th>
-                            <th>Tiempo de entrega</th>
                             <th>Acciones</th>
                         </tr>
                         </thead>
@@ -391,7 +383,6 @@
                         <tr>
                             <th>Nombre</th>
                             <th>Descripcion</th>
-                            <th>Tiempo de entrega</th>
                             <th>Acciones</th>
                         </tr>
                         </tfoot>

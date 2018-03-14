@@ -359,7 +359,8 @@
 											<div class="col-md-12 hidden_edit">
 												<div class="form-group">
 													<label for="refacciones">Refacciones</label>
-													<select class="form-control" name="refacciones[]" multiple id="refacciones">
+													<select class="form-control" name="refacciones[]" multiple
+															data-placeholder="Refacciones" style="width:100%;" id="refacciones">
 														<? foreach ($refacciones as $refaccion): ?>
 															<option value="<?= $refaccion['id'] ?>">
 																<?= $refaccion['nombre'] ?>

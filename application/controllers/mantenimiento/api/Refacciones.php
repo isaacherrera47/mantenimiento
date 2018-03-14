@@ -29,7 +29,6 @@ class Refacciones extends REST_Controller
         $datos = array(
             'nombre' => $this->post('nombre'),
             'descripcion' => $this->post('descripcion'),
-            'tiempo_entrega' => $this->post('tiempo_entrega'),
         );
         if ($result = $this->refaccion->insertar($datos)) {
             return $this->response($result, 201);
@@ -54,7 +53,6 @@ class Refacciones extends REST_Controller
         $datos = array(
             'nombre' => $this->put('nombre'),
             'descripcion' => $this->put('descripcion'),
-            'tiempo_entrega' => $this->put('tiempo_entrega'),
         );
 
         if ($result = $this->refaccion->actualizar($this->put('id'), $datos)) {
