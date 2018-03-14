@@ -340,27 +340,44 @@
                                                            placeholder="Nombre" name="nombre">
                                                 </div>
                                             </div>
-                                            <div class="col-md-6">
+											<div class="col-md-6">
+												<label for="tiempo_entrega">Tiempo de entrega</label>
+												<div class="input-group">
+													<input name="tiempo_entrega" id="tiempo_entrega"
+														   type="number" class="form-control">
+													<span class="input-group-addon">Horas</span>
+												</div>
+											</div>
+                                            <div class="col-md-12">
                                                 <div class="form-group">
                                                     <label for="descripcion">Descripcion</label>
-                                                    <input type="text" class="form-control" id="descripcion"
-                                                           placeholder="Descripcion" name="descripcion">
+                                                    <textarea class="form-control" id="descripcion" name="descripcion">
+													</textarea>
                                                 </div>
                                             </div>
-                                            <div class="col-md-6">
-                                                <div class="form-group">
-                                                    <label for="tiempo_entrega">Tiempo de entrega</label>
-                                                    <input type="text" class="form-control" id="tiempo_entrega"
-                                                           placeholder="Tiempo de entrega" name="tiempo_entrega">
-                                                </div>
-                                            </div>
-                                            <div class="col-md-6">
-                                                <div class="form-group">
-                                                    <label for="categoria">Categoria</label>
-                                                    <input type="text" class="form-control" id="categoria"
-                                                           placeholder="Categoria" name="categoria">
-                                                </div>
-                                            </div>
+											<div class="col-md-6">
+												<div class="form-group">
+													<label for="categoria">Categoria</label>
+													<select class="form-control" name="categoria" id="categoria">
+														<option value="Carroceria">Carroceria</option>
+														<option value="Electrico">Electrico</option>
+														<option value="Llantas">Llantas</option>
+														<option value="Mecanico">Mecanico</option>
+														<option value="Motor">Motor</option>
+														<option value="Suspension">Suspensión</option>
+														<option value="Otro">Otro</option>
+													</select>
+												</div>
+											</div>
+											<div class="col-md-6">
+												<div class="form-group">
+													<label for="unidad">Unidad</label>
+													<select class="form-control" id="unidad" name="unidad">
+														<option value="1">Tractor</option>
+														<option value="2">Caja</option>
+													</select>
+												</div>
+											</div>
                                         </div>
                                     </div>
                                 </div>
@@ -390,6 +407,7 @@
                             <th>Nombre</th>
                             <th>Descripcion</th>
                             <th>Categoria</th>
+                            <th>Unidad</th>
                             <th>Tiempo</th>
                             <th>Acciones</th>
                         </tr>
@@ -401,6 +419,7 @@
                             <th>Nombre</th>
                             <th>Descripcion</th>
                             <th>Categoria</th>
+                            <th>Unidad</th>
                             <th>Tiempo</th>
                             <th>Acciones</th
                         </tr>

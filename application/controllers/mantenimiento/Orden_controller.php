@@ -72,5 +72,11 @@ class Orden_controller extends CI_Controller
 		$this->load->view('templates/footer', $data);
 	}
 
+	public function revision()
+	{
+		$this->load->model('mantenimiento/orden_manual_interno');
+		$data['servicios'] = $this->db->get_where();
+	}
+
 
 }

@@ -29,10 +29,15 @@ class Servicios extends REST_Controller
         $datos = array(
             'nombre' => $this->post('nombre'),
             'descripcion' => $this->post('descripcion'),
-            'tiempo_entrega' => $this->post('tiempo_entrega'),
             'tipo' => $this->post('tipo'),
             'categoria' => $this->post('categoria'),
+			'unidad' => $this->post('unidad'),
         );
+
+        if($this->post('tiempo_entrega')) {
+			$datos['tiempo_entrega'] = $this->post('tiempo_entrega');
+		}
+
         if ($result = $this->servicio->insertar($datos)) {
             return $this->response($result, 201);
         } else {
@@ -56,9 +61,13 @@ class Servicios extends REST_Controller
         $datos = array(
             'nombre' => $this->put('nombre'),
             'descripcion' => $this->put('descripcion'),
-            'tiempo_entrega' => $this->put('tiempo_entrega'),
             'categoria' => $this->put('categoria'),
+			'unidad' => $this->put('unidad'),
         );
+
+		if($this->put('tiempo_entrega')) {
+			$datos['tiempo_entrega'] = $this->put('tiempo_entrega');
+		}
 
         if ($result = $this->servicio->actualizar($this->put('id'), $datos)) {
             return $this->response($result, 200);

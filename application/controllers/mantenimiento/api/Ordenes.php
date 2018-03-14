@@ -27,6 +27,9 @@ class Ordenes extends REST_Controller
 			case 'manual_interno':
 				$this->get_manual_interno();
 				break;
+			case 'refaccion':
+				$this->get_refaccion();
+				break;
 			default:
 				return $this->response(null, 400);
 		}
@@ -369,5 +372,10 @@ class Ordenes extends REST_Controller
 				return $this->response(array('result' => 'Error'), 404);
 			}
 		}
+	}
+
+	private function get_refaccion()
+	{
+
 	}
 }

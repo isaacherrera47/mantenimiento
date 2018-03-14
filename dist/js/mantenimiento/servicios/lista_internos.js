@@ -22,9 +22,14 @@ $(document).ready(function () {
         } else {
             elemento_temp = e.relatedTarget
             datos_temp = elementos.datatable.row($(elemento_temp).parent()).data()
-            for (item in datos_temp) {
-                $(elementos.form_modal).find('#' + item).val(datos_temp[item])
-            }
+			for (item in datos_temp) {
+				if (datos_temp[item] instanceof Object) {
+					$(elementos.form_modal).find('#' + item).val(datos_temp[item].id) // Sirve solo para select
+					$(elementos.form_modal).find('#id_' + item).val(datos_temp[item].id) // Para asignar id a objetos
+				} else {
+					$(elementos.form_modal).find('#' + item).val(datos_temp[item])
+				}
+			}
         }
     })
 
@@ -77,12 +82,21 @@ function llenarTabla() {
             {'data': 'nombre'},
             {'data': 'descripcion'},
             {'data': 'categoria'},
-            {'data': 'tiempo_entrega'},
+            {'data': 'unidad.descripcion'},
+            {'data': null},
             {
                 "data": null,
                 "defaultContent": elementos.template_botones
             }
-        ]
+        ],
+		columnDefs: [
+			{
+				targets: [4],
+				render: function (data, type, row) {
+					return data.tiempo_entrega + ' Horas'
+				}
+			}
+		]
     });
 
     $(elementos.tabla).on('click', '.ver-refacciones', function (e) {
