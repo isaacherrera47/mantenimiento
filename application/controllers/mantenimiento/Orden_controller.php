@@ -78,5 +78,16 @@ class Orden_controller extends CI_Controller
 		$data['servicios'] = $this->db->get_where();
 	}
 
+	public function imprimir($id_orden)
+	{
+		$this->load->model('mantenimiento/orden_manual_interno');
+		$data['now'] = date('m-d-Y');
+		$data['orden'] = $this->orden_manual_interno->obtener($id_orden);
+		$data['script'] = 'mantenimiento/ordenes/invoice_interno';
+		$this->load->view('templates/header');
+		$this->load->view('mantenimiento/ordenes/invoice_interno', $data);
+		$this->load->view('templates/footer', $data);
+	}
+
 
 }

@@ -41,7 +41,7 @@ class Orden_manual_interno extends CI_Model
 		}
 		if ($result && $refacciones) {
 			foreach ($refacciones as $refaccion) {
-				$this->db->insert('minterno_refaccion', array('id_minterno' => $result->id, 'id_refaccion' => $refaccion));
+				$this->db->insert('minterno_refaccion', array('id_minterno' => $result->id, 'id_refaccion' => $refaccion, 'piezas' => 1));
 			}
 		}
 		return $result;

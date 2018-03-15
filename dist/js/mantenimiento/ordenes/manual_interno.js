@@ -129,6 +129,12 @@ $(document).ready(function () {
 		}
 	})
 
+	elementos.tabla.on('click', '.imprimir', function (e) {
+		elemento_temp = e.currentTarget
+		datos_temp = elementos.datatable.row($(elemento_temp).parent()).data()
+		window.location.href = url_root + '/mantenimiento/ordenes/imprimir/interno/' + datos_temp.id
+	})
+
 
 })
 

@@ -497,5 +497,8 @@
 	<button type="button" class="btn btn-info btn-sm ver-detalle">
 		<i class="fa fa-list-ul"></i>
 	</button>
+	<button type="button" class="btn btn-default btn-sm imprimir">
+		<i class="fa fa-file-pdf-o"></i>
+	</button>
 </script>
 <!-- ./wrapper -->
