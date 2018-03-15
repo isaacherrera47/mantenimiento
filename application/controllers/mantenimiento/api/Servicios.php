@@ -15,6 +15,10 @@ class Servicios extends REST_Controller
 
     public function index_get()
     {
+    	if (($param = $this->query('getby')) && ($value = $this->get('value'))) {
+    		$tipo = $this->query('tipo');
+    		return $this->response($this->db->get_where('servicios', array('tipo' => $tipo, $param => $value))->result_array(), 200);
+		}
         if (($id = $this->get('id')) && is_numeric($this->get('id'))) {
             $response['data'] = $this->servicio->obtener($id);
         } else {

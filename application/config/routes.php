@@ -66,7 +66,7 @@ $route['mantenimiento/ordenes/revision'] = 'mantenimiento/orden_controller/revis
 $route['mantenimiento/ordenes/manual/externo'] = 'mantenimiento/orden_controller/manual_externo';
 $route['mantenimiento/ordenes/manual/interno'] = 'mantenimiento/orden_controller/manual_interno';
 $route['mantenimiento/ordenes/manual/externo/(:num)/(:num)'] = 'mantenimiento/orden_controller/manual_externo_detalle/$1/$2';
-$route['mantenimiento/ordenes/manual/interno/(:num)/(:num)'] = 'mantenimiento/orden_controller/manual_interno_detalle/$1/$2';
+$route['mantenimiento/ordenes/manual/interno/(:num)'] = 'mantenimiento/orden_controller/manual_interno_detalle/$1';
 
 // API
 $route['api/mecanicos'] = 'mantenimiento/api/mecanicos';

@@ -332,51 +332,7 @@
 								<div class="modal-body">
 									<div class="box-body">
 										<div class="row">
-											<div class="col-md-12" id="cb-proveedor">
-												<div class="form-group">
-													<label for="id_mecanico">Mecanico</label>
-													<select class="form-control" name="id_mecanico" id="id_mecanico">
-														<? foreach ($mecanicos as $mecanico): ?>
-															<option value="<?= $mecanico['id_mecanico'] ?>">
-																<?= $mecanico['nombre'] . ' ' . $mecanico['apellido'] ?>
-															</option>
-														<? endforeach ?>
-													</select>
-												</div>
-											</div>
-											<div class="col-md-12 hidden_edit">
-												<div class="form-group">
-													<label for="servicios">Servicios</label>
-													<select class="form-control" name="servicios[]" multiple id="servicios">
-														<? foreach ($servicios as $servicio): ?>
-															<option value="<?= $servicio['id'] ?>">
-																<?= $servicio['nombre'] ?>
-															</option>
-														<? endforeach ?>
-													</select>
-												</div>
-											</div>
-											<div class="col-md-12 hidden_edit">
-												<div class="form-group">
-													<label for="refacciones">Refacciones</label>
-													<select class="form-control" name="refacciones[]" multiple
-															data-placeholder="Refacciones" style="width:100%;" id="refacciones">
-														<? foreach ($refacciones as $refaccion): ?>
-															<option value="<?= $refaccion['id'] ?>">
-																<?= $refaccion['nombre'] ?>
-															</option>
-														<? endforeach ?>
-													</select>
-												</div>
-											</div>
-											<div class="col-md-12">
-												<div class="form-group">
-													<label for="notas">Notas</label>
-													<textarea class="form-control" id="notas"
-															  placeholder="Notas" name="notas"></textarea>
-												</div>
-											</div>
-											<div class="col-md-6">
+											<div class="col-md-6 hidden_edit">
 												<div class="form-group">
 													<label for="tipo">Tipo</label>
 													<select class="form-control" name="tipo" id="tipo">
@@ -385,7 +341,7 @@
 													</select>
 												</div>
 											</div>
-											<div class="col-md-6" id="cb-tractor">
+											<div class="col-md-6 hidden_edit" id="cb-tractor">
 												<div class="form-group">
 													<label for="tractor">Tractor</label>
 													<select class="form-control" name="tractor" id="tractor">
@@ -397,7 +353,7 @@
 													</select>
 												</div>
 											</div>
-											<div class="col-md-6" id="cb-caja">
+											<div class="col-md-6 hidden_edit" id="cb-caja">
 												<div class="form-group">
 													<label for="caja">Caja</label>
 													<select class="form-control" name="caja" id="caja">
@@ -405,6 +361,56 @@
 															<option value="<?= $caja['idCaja'] ?>">
 																<?= $caja['caja'] ?>
 															</option>
+														<? endforeach ?>
+													</select>
+												</div>
+											</div>
+											<div class="col-md-12 hidden_edit">
+												<div class="form-group">
+													<label for="servicios">Servicios</label>
+													<select class="form-control" name="servicios[]" multiple
+															data-placeholder="Servicios" style="width:100%;" id="servicios">
+														<? foreach ($servicios as $servicio): ?>
+															<option value="<?= $servicio['id'] ?>"><?= $servicio['nombre'] ?></option>
+														<? endforeach ?>
+													</select>
+												</div>
+											</div>
+											<div class="col-md-12">
+												<div class="form-group">
+													<label for="notas">Notas</label>
+													<textarea class="form-control" id="notas"
+															  placeholder="Notas" name="notas"></textarea>
+												</div>
+											</div>
+											<div class="col-md-12 hidden_edit">
+												<div class="checkbox">
+													<label>
+														<input type="checkbox" id="orden-compra" name="orden-compra">
+														Voy a generar una orden de compra de refacciones
+													</label>
+												</div>
+											</div>
+											<div class="col-md-12" id="cb-mecanico">
+												<div class="form-group">
+													<label for="id_mecanico">Mecanico</label>
+													<select class="form-control" name="id_mecanico" id="id_mecanico">
+														<? foreach ($mecanicos as $mecanico): ?>
+															<option value="<?= $mecanico['id_mecanico'] ?>">
+																<?= $mecanico['nombre'] . ' ' . $mecanico['apellido'] ?>
+															</option>
+														<? endforeach ?>
+													</select>
+													<p class="text-muted">Asignado temporalmente hasta que se apruebe la orden</p>
+												</div>
+											</div>
+											<div class="col-md-12 hidden_edit" id="cb-refacciones">
+												<div class="form-group">
+													<label for="refacciones">Refacciones</label>
+													<select class="form-control" name="refacciones[]" multiple
+															data-placeholder="Refacciones" style="width:100%;" id="refacciones">
+														<? foreach ($refacciones as $refaccion): ?>
+															<option value="<?= $refaccion['id'] ?>"><?= $refaccion['nombre'] ?></option>
 														<? endforeach ?>
 													</select>
 												</div>

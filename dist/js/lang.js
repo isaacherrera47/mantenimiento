@@ -8,6 +8,7 @@ lenguaje = {
     =======================================================
  */
 lenguaje['es']['mecanico'] = 'Mecanico'
+lenguaje['es']['no_asignado'] = 'Sin asignar'
 lenguaje['es']['servicio_interno'] = 'Servicio Interno'
 lenguaje['es']['servicio_externo'] = 'Servicio Externo'
 lenguaje['es']['servicio_proveedor'] = 'Proveedor de Servicio'

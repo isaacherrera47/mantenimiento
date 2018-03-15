@@ -53,7 +53,7 @@ class Orden_controller extends CI_Controller
 		$data['cajas'] = $this->db->get('cajas')->result_array();
 		$data['tractores'] = $this->db->get('tractores')->result_array();
 		$data['mecanicos'] = $this->db->get('mecanicos')->result_array();
-		$data['servicios'] = $this->db->get_where('servicios', array('tipo' => 'Interno'))->result_array();
+		$data['servicios'] = $this->db->get_where('servicios', array('tipo' => 'Interno', 'unidad' => 1))->result_array();
 		$data['refacciones'] = $this->db->get('refacciones')->result_array();
 		$data['script'] = 'mantenimiento/ordenes/manual_interno';
 		$this->load->view('templates/header');
@@ -61,11 +61,11 @@ class Orden_controller extends CI_Controller
 		$this->load->view('templates/footer', $data);
 	}
 
-	public function manual_interno_detalle($id_orden, $id_mecanico) {
+	public function manual_interno_detalle($id_orden) {
 		$this->load->model('mantenimiento/orden_manual_interno');
-		$data['servicios'] = $this->db->get_where('servicios', array('tipo' => 'Interno'))->result_array();
 		$data['refacciones'] = $this->db->get('refacciones')->result_array();
 		$data['orden'] = $this->orden_manual_interno->obtener($id_orden);
+		$data['servicios'] = $this->db->get_where('servicios', array('tipo' => 'Interno', 'unidad' => $data['orden']->tipo['id']))->result_array();
 		$data['script'] = 'mantenimiento/ordenes/manual_interno_detalle';
 		$this->load->view('templates/header');
 		$this->load->view('mantenimiento/ordenes/manual_interno_detalle', $data);

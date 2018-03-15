@@ -1,5 +1,6 @@
 var url_root = window.location.origin + '/fletes/index.php' // Base url
 var api_url = url_root + '/api/ordenes/?tipo_orden=manual_interno' // URL API Ordenes en ruta.
+var api_servicios = url_root + '/api/servicios/?getby=unidad&tipo=Interno'
 var accion = null; // Accion a ejecutar en modal
 var datos_temp = null // Referencia a datos temporales en edicion
 var elemento_temp = null // Referencia temporal de boton de edicion
@@ -14,26 +15,31 @@ var elementos = {
 	template_botones: $('#botones-accion').html(),
 	cajas: $('#cb-caja'),
 	tractores: $('#cb-tractor'),
+	cb_mecanico: $('#cb-mecanico'),
+	cb_refacciones: $('#cb-refacciones'),
 	tipo_objeto: $('#tipo'),
-	no_editable: $('#hidden_edit'),
+	no_editable: $('.hidden_edit'),
 	files_input: ['factura'],
+	refacciones: $('#refacciones'),
+	orden_compra: $('#orden-compra'),
 }
 
 $(document).ready(function () {
 	llenarTabla()
-	$('#refacciones').select2()
+	elementos.refacciones.select2()
+	elementos.servicios.select2()
 	$(elementos.modal).on('show.bs.modal', function (e) {
 		if (e.namespace == 'bs.modal') {
 			accion = $(e.relatedTarget).data('action')
 			$(this).find('.modal-title').text(accion + ' ' + lenguaje[ls]['orden_manual_in'])
 			$('.actual').remove()  //Remueve enlaces existentes a facturas.
-			if (accion == 'Nuevo') {
-				elementos.no_editable.fadeIn()
-				$(elementos.form_modal)[0].reset()
-			} else {
+			reiniciarFormulario()
+			alternarCombo()
+			if (accion != 'Nuevo') {
 				elementos.no_editable.fadeOut()
 				elemento_temp = e.relatedTarget
 				datos_temp = elementos.datatable.row($(elemento_temp).parent()).data()
+				console.log(datos_temp)
 				for (item in datos_temp) {
 					if (datos_temp[item] instanceof Object) {
 						$(elementos.form_modal).find('#' + item).val(datos_temp[item].id) // Sirve solo para select
@@ -46,23 +52,22 @@ $(document).ready(function () {
 					}
 				}
 			}
-			alternarCombo()
 		}
 	})
 
 	elementos.form_modal.on('submit', function (e) {
 		e.preventDefault()
-		var data = new FormData($(this)[0])
+		var method = accion == 'Nuevo' ? 'POST' : 'PUT'
+		var data = new $(this).serialize()
+
 		if (accion != 'Nuevo') {
-			data.append('id', datos_temp.id)
+			data += '&id=' + datos_temp.id + '&estado=' + datos_temp.estado
 		}
 
 		$.ajax({
 			url: api_url,
 			data: data,
-			processData: false,
-			contentType: false,
-			method: 'POST',
+			method: method,
 			success: function (data) {
 				actualizarInterfaz(accion, data)
 			},
@@ -72,6 +77,7 @@ $(document).ready(function () {
 			}
 		})
 	})
+
 
 	$(elementos.tabla).on('click', '.eliminar-orden', function (e) {
 		elemento_temp = e.currentTarget
@@ -95,7 +101,35 @@ $(document).ready(function () {
 
 	$(elementos.tipo_objeto).on('change', function (e) {
 		alternarCombo()
+		var id_unidad = $(this).val()
+
+		if (id_unidad != '0') {
+			$.ajax({
+				url: api_servicios,
+				data: {'value': id_unidad},
+				method: 'GET',
+				success: function (result) {
+					elementos.servicios.empty()
+					$.each(result, function (key, value) {
+						elementos.servicios.append($('<option></option>').attr('value', value.id).text(value.nombre))
+					})
+					elementos.servicios.select2()
+				}
+			})
+		}
 	})
+
+	elementos.orden_compra.on('change', function (e) {
+		if ($(this).is(':checked')) {
+			elementos.cb_mecanico.fadeOut();
+			elementos.cb_refacciones.fadeIn();
+		} else {
+			elementos.cb_mecanico.fadeIn();
+			elementos.cb_refacciones.fadeOut();
+		}
+	})
+
+
 })
 
 function alternarCombo() {
@@ -130,7 +164,7 @@ function llenarTabla() {
 			{
 				targets: [1],
 				render: function (data, type, row) {
-					return data.mecanico.nombre + ' ' + data.mecanico.apellido
+					return data.mecanico ? data.mecanico.nombre + ' ' + data.mecanico.apellido : lenguaje[ls]['no_asignado']
 				}
 			},
 			{
@@ -145,7 +179,7 @@ function llenarTabla() {
 	$(elementos.tabla).on('click', '.ver-detalle', function (e) {
 		elemento_temp = e.currentTarget
 		datos_temp = elementos.datatable.row($(elemento_temp).parent()).data()
-		window.location.href = window.location + '/' + datos_temp.id + '/' + datos_temp.mecanico.id
+		window.location.href = window.location + '/' + datos_temp.id
 	})
 }
 
@@ -160,4 +194,12 @@ function actualizarInterfaz(accion, datos) {
 	}
 	alertify.success(texto)
 	$(elementos.modal).modal('hide')
+}
+
+function reiniciarFormulario() {
+	elementos.no_editable.fadeIn()
+	$(elementos.form_modal)[0].reset()
+	elementos.refacciones.select2()
+	elementos.servicios.select2()
+	elementos.orden_compra.trigger('change')
 }

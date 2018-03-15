@@ -377,7 +377,11 @@
 					<?php endif ?>
 					<div class="col-sm-6">
 						<strong><i class="fa fa-male"></i> Mecanico a cargo</strong>
-						<p class="text-muted"><?= $orden->mecanico->nombre . ' ' . $orden->mecanico->apellido ?></p>
+						<?php if ($orden->mecanico): ?>
+							<p class="text-muted"><?= $orden->mecanico->nombre . ' ' . $orden->mecanico->apellido ?></p>
+						<?php else: ?>
+							<p class="text-muted">Aún no se ha definido</p>
+						<?php endif ?>
 					</div>
 					<div class="col-sm-6">
 						<strong><i class="fa fa-file-image-o"></i> Estado de la orden </strong>

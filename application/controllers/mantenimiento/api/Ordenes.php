@@ -93,6 +93,9 @@ class Ordenes extends REST_Controller
 			case 'refaccion':
 				$this->put_refaccion();
 				break;
+			case 'manual_interno':
+				$this->put_manual_interno();
+				break;
 			default:
 				return $this->response(null, 400);
 		}
@@ -229,36 +232,45 @@ class Ordenes extends REST_Controller
 
 	private function post_manual_interno()
 	{
-		/*$config = array();
-		$config['upload_path'] = './uploads/';
-		$config['allowed_types'] = 'gif|jpg|png';
-		$config['overwrite'] = true;
-		$this->load->library('upload');
-		$this->upload->initialize($config);*/ //Deshabilitado temporalmente
-
 		$datos = array(
 			'tipo' => $this->post('tipo'),
 			'notas' => $this->post('notas'),
-			'id_mecanico' => $this->post('id_mecanico')
 		);
 
+
 		$datos['id_objeto'] = $this->post('tipo') == 2 ? $this->post('caja') : $this->post('tractor');
+		$datos['servicios'] = $this->post('servicios');
 
-		/*if ($this->upload->do_upload('factura')) {
-			$datos['factura'] = $this->upload->data('file_name'); //TODO: Implementar operaciones de borrado
-		}*/ // Deshabilitado temporalmente
-
-		if ($id = $this->post('id')) {
-			if ($result = $this->orden_manual_interno->actualizar($id, $datos)) {
-				return $this->response($result, 200);
-			}
-		} else {
-			$datos['servicios'] = $this->post('servicios');
-			$datos['refacciones'] = $this->post('refacciones');
-			if ($result = $this->orden_manual_interno->insertar($datos)) {
-				return $this->response($result, 201);
-			}
+		if (!($datos['refacciones'] = $this->post('refacciones'))) {
+			$datos['id_mecanico'] = $this->post('id_mecanico');
 		}
+
+		if ($result = $this->orden_manual_interno->insertar($datos)) {
+			return $this->response($result, 201);
+		}
+
+		return $this->response(null, 500);
+	}
+
+	private function put_manual_interno()
+	{
+		if (!($id = $this->put('id'))) {
+			return $this->response(null, 400);
+		}
+
+		$estado = $this->put('estado');
+		$datos = array(
+			'notas' => $this->put('notas'),
+		);
+
+		if ($estado == 'null') {
+			$datos['id_mecanico'] = $this->put('id_mecanico');
+		}
+
+		if ($result = $this->orden_manual_interno->actualizar($id, $datos)) {
+			return $this->response($result, 200);
+		}
+
 		return $this->response(null, 500);
 	}
 
